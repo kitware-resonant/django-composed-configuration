@@ -1,6 +1,7 @@
-from setuptools import setup, find_packages
-from os import path
 from pathlib import Path
+
+from setuptools import find_packages, setup
+
 
 readme_file = Path(__file__).parent / 'README.md'
 with readme_file.open() as f:
