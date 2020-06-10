@@ -1,6 +1,6 @@
 from configurations import values
 
-from ._base import ConfigMixin
+from ._base import ComposedConfiguration, ConfigMixin
 
 
 class CeleryMixin(ConfigMixin):
@@ -33,7 +33,7 @@ class CeleryMixin(ConfigMixin):
     # long-running tasks from being started automatically every time the worker
     # process restarts; this more aggressively flushes the task queue.
     @property
-    def CELERY_TASK_ACKS_LATE(self):  # noqa: N802
+    def CELERY_TASK_ACKS_LATE(self: ComposedConfiguration) -> bool:  # noqa: N802
         return False if self.DEBUG else True
 
     # CloudAMQP-suggested settings

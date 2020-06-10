@@ -1,4 +1,4 @@
-from typing import Type
+from typing import Protocol, Type
 
 from configurations import Configuration, values
 
@@ -8,7 +8,7 @@ from configurations import Configuration, values
 values.Value.late_binding = True
 
 
-class ComposedConfiguration(Configuration):
+class ComposedConfiguration(Protocol, Configuration):
     """
     Abstract base for composed Configuration.
 
