@@ -2,6 +2,7 @@ from ._base import ComposedConfiguration, ConfigMixin
 from ._celery import CeleryMixin
 from ._cors import CorsMixin
 from ._database import DatabaseMixin
+from ._logging import LoggingMixin
 from ._storage import StorageMixin
 
 __all__ = [
@@ -10,5 +11,6 @@ __all__ = [
     'CeleryMixin',
     'CorsMixin',
     'DatabaseMixin',
+    'LoggingMixin',
     'StorageMixin',
 ]
