@@ -1,6 +1,10 @@
 from ._base import ComposedConfiguration, ConfigMixin
 from ._celery import CeleryMixin
-from ._configuration import DevelopmentBaseConfiguration
+from ._configuration import (
+    DevelopmentBaseConfiguration,
+    HerokuProductionBaseConfiguration,
+    ProductionBaseConfiguration,
+)
 from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
@@ -24,8 +28,10 @@ __all__ = [
     'DjangoMixin',
     'EmailMixin',
     'ExtensionsMixin',
+    'HerokuProductionBaseConfiguration',
     'LoggingMixin',
     'MinioStorageMixin',
+    'ProductionBaseConfiguration',
     'RestFrameworkMixin',
     'S3StorageMixin',
     'StaticFileMixin',

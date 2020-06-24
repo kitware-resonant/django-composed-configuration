@@ -11,7 +11,7 @@ from ._extensions import ExtensionsMixin
 from ._logging import LoggingMixin
 from ._rest_framwork import RestFrameworkMixin
 from ._static import WhitenoiseStaticFileMixin
-from ._storage import MinioStorageMixin
+from ._storage import MinioStorageMixin, S3StorageMixin
 
 
 # Subclasses are loaded in last to first ordering
@@ -43,3 +43,22 @@ class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, _BaseConfigura
     # INTERNAL_IPS does not work properly when this is run within Docker, since the bridge
     # sends requests from the host machine via a dedicated IP address
     INTERNAL_IPS = ['127.0.0.1']
+
+
+class ProductionBaseConfiguration(S3StorageMixin, _BaseConfiguration):
+    pass
+
+
+class HerokuProductionBaseConfiguration(ProductionBaseConfiguration):
+    # Use different env var names (with no DJANGO_ prefix) for services that Heroku auto-injects
+    DATABASES = values.DatabaseURLValue(
+        environ_name='DATABASE_URL',
+        environ_prefix=None,
+        environ_required=True,
+        engine='django.db.backends.postgresql',
+        conn_max_age=600,
+        ssl_require=True,
+    )
+    CELERY_BROKER_URL = values.Value(
+        environ_name='CLOUDAMQP_URL', environ_prefix=None, environ_required=True
+    )
