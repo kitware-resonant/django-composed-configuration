@@ -4,6 +4,7 @@ from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
 from ._django import DjangoMixin
+from ._email import EmailMixin
 from ._extensions import ExtensionsMixin
 from ._logging import LoggingMixin
 from ._rest_framwork import RestFrameworkMixin
@@ -17,6 +18,7 @@ __all__ = [
     'DatabaseMixin',
     'DebugMixin',
     'DjangoMixin',
+    'EmailMixin',
     'ExtensionsMixin',
     'LoggingMixin',
     'RestFrameworkMixin',
