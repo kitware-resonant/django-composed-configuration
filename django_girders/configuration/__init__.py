@@ -10,7 +10,9 @@ from ._email import EmailMixin
 from ._extensions import ExtensionsMixin
 from ._logging import LoggingMixin
 from ._rest_framwork import RestFrameworkMixin
+from ._static import WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
+
 
 __all__ = [
     'ComposedConfiguration',
@@ -26,6 +28,7 @@ __all__ = [
     'MinioStorageMixin',
     'RestFrameworkMixin',
     'S3StorageMixin',
+    'WhitenoiseStaticFileMixin',
 ]
 
 
@@ -36,7 +39,7 @@ class BaseConfiguration(
     RestFrameworkMixin,
     # CorsMixin must be loaded after WhitenoiseStaticFileMixin
     CorsMixin,
-    # WhitenoiseStaticFileMixin,
+    WhitenoiseStaticFileMixin,
     DatabaseMixin,
     EmailMixin,
     LoggingMixin,

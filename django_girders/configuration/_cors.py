@@ -23,7 +23,7 @@ class CorsMixin(ConfigMixin):
 
         # CorsMiddleware must be added immediately before WhiteNoiseMiddleware, so this can
         # potentially add CORS headers to those responses too.
-        # Accordingly, CorsConfig must be loaded after WhitenoiseStaticFileConfig, so it can
+        # Accordingly, CorsMixin must be loaded after WhitenoiseStaticFileMixin, so it can
         # find the existing entry and insert accordingly.
         try:
             whitenoise_index = configuration.MIDDLEWARE.index(
