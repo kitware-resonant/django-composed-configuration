@@ -3,6 +3,7 @@ from ._celery import CeleryMixin
 from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
+from ._extensions import ExtensionsMixin
 from ._logging import LoggingMixin
 from ._rest_framwork import RestFrameworkMixin
 from ._storage import StorageMixin
@@ -14,6 +15,7 @@ __all__ = [
     'CorsMixin',
     'DatabaseMixin',
     'DebugMixin',
+    'ExtensionsMixin',
     'LoggingMixin',
     'RestFrameworkMixin',
     'StorageMixin',
