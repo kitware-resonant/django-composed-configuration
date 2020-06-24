@@ -26,14 +26,6 @@ class ComposedConfiguration(Configuration):
             if 'before_binding' in base_cls.__dict__:
                 base_cls.before_binding(cls)
 
-    @classmethod
-    def post_setup(cls):
-        super().post_setup()
-
-        for base_cls in reversed(cls.__mro__):
-            if 'after_binding' in base_cls.__dict__:
-                base_cls.after_binding(cls)
-
 
 class ConfigMixin:
     """Abstract mixin for composable Config sections."""
@@ -42,16 +34,6 @@ class ConfigMixin:
     def before_binding(configuration: Type[ComposedConfiguration]) -> None:
         """
         Run before values are fully bound with environment variables.
-
-        `configuration` refers to the final Configuration class, so settings from
-        other Configs in the final hierarchy may be referenced.
-        """
-        pass
-
-    @staticmethod
-    def after_binding(configuration: Type[ComposedConfiguration]) -> None:
-        """
-        Run after values are fully bound with environment variables.
 
         `configuration` refers to the final Configuration class, so settings from
         other Configs in the final hierarchy may be referenced.
