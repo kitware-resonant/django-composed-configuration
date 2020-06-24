@@ -1,39 +1,56 @@
-from ._base import ConfigMixin
+import logging
+from typing import Type
+
+from django.utils.log import DEFAULT_LOGGING
+
+from ._base import ComposedConfiguration, ConfigMixin
+
+
+def _filter_favicon_messages(record):
+    return not (
+        'favicon' in record.msg.lower() or [arg for arg in record.args if 'favicon' in arg.lower()]
+    )
 
 
 class LoggingMixin(ConfigMixin):
     """
     Configure Django logging.
 
-    This causes the logger to ...
+    This requires the rich package to be installed.
     """
 
-    LOGGING = {
-        'version': 1,
-        'disable_existing_loggers': False,
-        'formatters': {
-            # Based on https://stackoverflow.com/a/20983546
-            # TODO: Do we like this format?
-            'verbose': {
-                'format': (
-                    '%(asctime)s [%(process)d] [%(levelname)s] '
-                    + 'pathname=%(pathname)s lineno=%(lineno)s '
-                    + 'funcname=%(funcName)s %(message)s'
-                ),
-                'datefmt': '%Y-%m-%d %H:%M:%S',
-            },
-        },
-        'handlers': {
-            'console': {
-                # Unlike the Django default "console" handler, this works during production,
-                # has a level of DEBUG, and uses a different formatter
-                'level': 'DEBUG',
-                'class': 'logging.StreamHandler',
-                'formatter': 'verbose',
-            },
-            'mail_admins': {
-                # Disable Django's default "mail_admins" handler
-                'class': 'logging.NullHandler',
-            },
-        },
-    }
+    # Disable existing Django logging configuration
+    LOGGING_CONFIG = None
+    LOGGING = None
+
+    @staticmethod
+    def after_binding(configuration: Type[ComposedConfiguration]) -> None:
+        logging.config.dictConfig(
+            {
+                'version': 1,
+                'disable_existing_loggers': False,
+                'formatters': {"rich": {"datefmt": "[%X]"}},
+                'handlers': {
+                    'console': {
+                        'class': 'rich.logging.RichHandler',
+                        'formatter': 'rich',
+                        'filters': ['filter_favicon_messages'],
+                    },
+                    'django.server': {
+                        'class': 'rich.logging.RichHandler',
+                        'formatter': 'rich',
+                        'filters': ['filter_favicon_messages'],
+                    },
+                },
+                'loggers': {
+                    '': {'level': 'INFO', 'handlers': ['console'], 'propagate': False},
+                    'django.server': DEFAULT_LOGGING['loggers']['django.server'],
+                },
+                'filters': {
+                    'filter_favicon_messages': {
+                        '()': 'django.utils.log.CallbackFilter',
+                        'callback': _filter_favicon_messages,
+                    }
+                },
+            }
+        )
