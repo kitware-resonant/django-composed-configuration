@@ -14,8 +14,7 @@ class CeleryMixin(ConfigMixin):
             namespace='CELERY'
         )
 
-    The `DJANGO_CELERY_BROKER_URL` environment variable may be externally set
-    to an AMQP URL.
+    The `DJANGO_CELERY_BROKER_URL` environment variable may be externally set to an AMQP URL.
     """
 
     # Assume AMQP.

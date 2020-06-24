@@ -10,11 +10,11 @@ class CorsMixin(ConfigMixin):
     Configure CORS headers.
 
     The following environment variables may be externally set:
-    * DJANGO_CORS_ORIGIN_WHITELIST
-    * DJANGO_CORS_ORIGIN_REGEX_WHITELIST
+    * `DJANGO_CORS_ORIGIN_WHITELIST`
+    * `DJANGO_CORS_ORIGIN_REGEX_WHITELIST`
 
-    This requires the django-cors-headers package to be installed.
-    This also must be loaded after WhitenoiseStaticFileMixin.
+    This requires the `django-cors-headers` package to be installed.
+    This also must be loaded after `WhitenoiseStaticFileMixin`.
     """
 
     @staticmethod
