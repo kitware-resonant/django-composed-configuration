@@ -1,5 +1,3 @@
-from pathlib import Path
-
 from configurations import values
 
 from ._base import ComposedConfiguration, ConfigMixin
@@ -46,7 +44,7 @@ class BaseConfiguration(
     DjangoMixin,
     ComposedConfiguration,
 ):
-    BASE_DIR = str(Path(__file__).absolute().parent.parent)
+    pass
 
 
 class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, BaseConfiguration):
