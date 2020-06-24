@@ -8,7 +8,7 @@ from ._base import ComposedConfiguration, ConfigMixin
 
 def _filter_favicon_messages(record):
     return not (
-        'favicon' in record.msg.lower() or [arg for arg in record.args if 'favicon' in arg.lower()]
+        'favicon' in record.msg.lower() or any('favicon' in arg.lower() for arg in record.args)
     )
 
 
