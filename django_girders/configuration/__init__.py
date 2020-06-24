@@ -1,7 +1,10 @@
-from configurations import values
-
 from ._base import ComposedConfiguration, ConfigMixin
 from ._celery import CeleryMixin
+from ._configuration import (
+    DevelopmentBaseConfiguration,
+    HerokuProductionBaseConfiguration,
+    ProductionBaseConfiguration,
+)
 from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
@@ -10,54 +13,27 @@ from ._email import EmailMixin
 from ._extensions import ExtensionsMixin
 from ._logging import LoggingMixin
 from ._rest_framwork import RestFrameworkMixin
-from ._static import WhitenoiseStaticFileMixin
+from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
 
 __all__ = [
+    'CeleryMixin',
     'ComposedConfiguration',
     'ConfigMixin',
-    'CeleryMixin',
     'CorsMixin',
     'DatabaseMixin',
     'DebugMixin',
+    'DevelopmentBaseConfiguration',
     'DjangoMixin',
     'EmailMixin',
     'ExtensionsMixin',
+    'HerokuProductionBaseConfiguration',
     'LoggingMixin',
     'MinioStorageMixin',
+    'ProductionBaseConfiguration',
     'RestFrameworkMixin',
     'S3StorageMixin',
+    'StaticFileMixin',
     'WhitenoiseStaticFileMixin',
 ]
-
-
-# Subclasses are loaded in last to first ordering
-class BaseConfiguration(
-    ExtensionsMixin,
-    CeleryMixin,
-    RestFrameworkMixin,
-    # CorsMixin must be loaded after WhitenoiseStaticFileMixin
-    CorsMixin,
-    WhitenoiseStaticFileMixin,
-    DatabaseMixin,
-    EmailMixin,
-    LoggingMixin,
-    # DjangoMixin should be loaded first
-    DjangoMixin,
-    ComposedConfiguration,
-):
-    pass
-
-
-class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, BaseConfiguration):
-    DEBUG = True
-    SECRET_KEY = 'insecuresecret'
-    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
-    CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
-        [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
-    )
-
-    # INTERNAL_IPS does not work properly when this is run within Docker, since the bridge
-    # sends requests from the host machine via a dedicated IP address
-    INTERNAL_IPS = ['127.0.0.1']
