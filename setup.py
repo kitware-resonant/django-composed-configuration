@@ -9,7 +9,7 @@ with readme_file.open() as f:
 
 setup(
     name='django-girders',
-    version='0.0.1',
+    version='0.0.2',
     description='Django utilities for data management applications',
     long_description=long_description,
     long_description_content_type='text/markdown',
