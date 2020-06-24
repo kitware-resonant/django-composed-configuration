@@ -3,7 +3,7 @@ from configurations import values
 from ._base import ConfigMixin
 
 
-class StorageMixin(ConfigMixin):
+class _StorageMixin(ConfigMixin):
     """Abstract base for storage configs."""
 
     pass
@@ -11,7 +11,7 @@ class StorageMixin(ConfigMixin):
     # whatever particular setting is used to store the bucket name
 
 
-class MinioStorageMixin(ConfigMixin):
+class MinioStorageMixin(_StorageMixin):
     DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
     MINIO_STORAGE_ENDPOINT = values.Value('localhost:9000')
     MINIO_STORAGE_USE_HTTPS = False
@@ -26,7 +26,7 @@ class MinioStorageMixin(ConfigMixin):
     # TODO: Boto config for minio?
 
 
-class S3StorageMixin(ConfigMixin):
+class S3StorageMixin(_StorageMixin):
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
     # This exact environ_name is important, as direct use of Boto will also use it

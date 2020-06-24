@@ -9,14 +9,14 @@ from ._email import EmailMixin
 from ._extensions import ExtensionsMixin
 from ._logging import LoggingMixin
 from ._rest_framwork import RestFrameworkMixin
-from ._static import WhitenoiseStaticFileMixin
+from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
 
 __all__ = [
+    'CeleryMixin',
     'ComposedConfiguration',
     'ConfigMixin',
-    'CeleryMixin',
     'CorsMixin',
     'DatabaseMixin',
     'DebugMixin',
@@ -28,5 +28,6 @@ __all__ = [
     'MinioStorageMixin',
     'RestFrameworkMixin',
     'S3StorageMixin',
+    'StaticFileMixin',
     'WhitenoiseStaticFileMixin',
 ]
