@@ -1,7 +1,6 @@
-from configurations import values
-
 from ._base import ComposedConfiguration, ConfigMixin
 from ._celery import CeleryMixin
+from ._configuration import DevelopmentBaseConfiguration
 from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
@@ -21,6 +20,7 @@ __all__ = [
     'CorsMixin',
     'DatabaseMixin',
     'DebugMixin',
+    'DevelopmentBaseConfiguration',
     'DjangoMixin',
     'EmailMixin',
     'ExtensionsMixin',
@@ -30,34 +30,3 @@ __all__ = [
     'S3StorageMixin',
     'WhitenoiseStaticFileMixin',
 ]
-
-
-# Subclasses are loaded in last to first ordering
-class BaseConfiguration(
-    ExtensionsMixin,
-    CeleryMixin,
-    RestFrameworkMixin,
-    # CorsMixin must be loaded after WhitenoiseStaticFileMixin
-    CorsMixin,
-    WhitenoiseStaticFileMixin,
-    DatabaseMixin,
-    EmailMixin,
-    LoggingMixin,
-    # DjangoMixin should be loaded first
-    DjangoMixin,
-    ComposedConfiguration,
-):
-    pass
-
-
-class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, BaseConfiguration):
-    DEBUG = True
-    SECRET_KEY = 'insecuresecret'
-    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
-    CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
-        [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
-    )
-
-    # INTERNAL_IPS does not work properly when this is run within Docker, since the bridge
-    # sends requests from the host machine via a dedicated IP address
-    INTERNAL_IPS = ['127.0.0.1']
