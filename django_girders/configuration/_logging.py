@@ -23,7 +23,8 @@ class LoggingMixin(ConfigMixin):
     LOGGING_CONFIG = None
     LOGGING = None
 
-    def after_binding(self, configuration: Type[ComposedConfiguration]) -> None:
+    @staticmethod
+    def after_binding(configuration: Type[ComposedConfiguration]) -> None:
         logging.config.dictConfig(
             {
                 'version': 1,
