@@ -27,8 +27,14 @@ class StaticFileMixin(ConfigMixin):
     @property
     def STATIC_ROOT(self):  # noqa: N802
         # Django staticfiles creates any intermediate directories which don't exist
+        # TODO: allow from env?
         return values.PathValue(
-            os.path.join(self.BASE_DIR, 'staticfiles'), environ=False, check_exists=False
+            os.path.join(self.BASE_DIR, 'staticfiles'),
+            environ=False,
+            check_exists=False,
+            # Disable late_binding, to make this return an actual str, not a Value, since some
+            # "os" module functions (which are called with this) do strict nominal type checking.
+            late_binding=False,
         )
 
     @staticmethod
