@@ -12,6 +12,15 @@ class _StorageMixin(ConfigMixin):
 
 
 class MinioStorageMixin(_StorageMixin):
+    """
+    Configure MinioMediaStorage.
+
+    The following environment variables must be externally set:
+    * DJANGO_MINIO_STORAGE_ACCESS_KEY
+    * DJANGO_MINIO_STORAGE_SECRET_KEY
+    * DJANGO_STORAGE_BUCKET_NAME
+    """
+
     DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
     MINIO_STORAGE_ENDPOINT = values.Value('localhost:9000')
     MINIO_STORAGE_USE_HTTPS = False
@@ -23,10 +32,19 @@ class MinioStorageMixin(_StorageMixin):
     MINIO_STORAGE_AUTO_CREATE_MEDIA_BUCKET = True
     MINIO_STORAGE_AUTO_CREATE_MEDIA_POLICY = 'READ_WRITE'
     MINIO_STORAGE_MEDIA_USE_PRESIGNED = True
-    # TODO: Boto config for minio?
 
 
 class S3StorageMixin(_StorageMixin):
+    """
+    Configure S3Boto3Storage.
+
+    The following environment variables must be externally set:
+    * AWS_DEFAULT_REGION
+    * AWS_ACCESS_KEY_ID
+    * AWS_SECRET_ACCESS_KEY
+    * DJANGO_STORAGE_BUCKET_NAME
+    """
+
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 
     # This exact environ_name is important, as direct use of Boto will also use it
