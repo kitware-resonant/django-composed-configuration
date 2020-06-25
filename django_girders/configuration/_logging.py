@@ -7,9 +7,17 @@ from ._base import ComposedConfiguration, ConfigMixin
 
 
 def _filter_favicon_messages(record):
-    return not (
-        'favicon' in record.msg.lower() or any('favicon' in arg.lower() for arg in record.args)
-    )
+    if (
+        record.name == 'django.request'
+        and hasattr(record, 'request')
+        and record.request.path == '/favicon.ico'
+    ):
+        return False
+
+    if record.name == 'django.server' and '/favicon.ico' in record.args[0]:
+        return False
+
+    return True
 
 
 class LoggingMixin(ConfigMixin):
