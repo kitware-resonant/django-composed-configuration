@@ -2,9 +2,10 @@ from typing import Type
 
 from configurations import Configuration, values
 
-
-# When "environ_name" is specified or "environ=False", a Value will immediately bind (and so
-# cannot be tweaked effectively in "before_binding"), unless "late_binding=True"
+# With the default "late_binding=False", and "environ_name" is specified or "environ=False",
+# even Values from non-included classes (e.g. `AWS_DEFAULT_REGION) get immediately evaluated and
+# expect env vars to be set. Also, immediately evaluated Values cannot be tweaked effectively
+# in "before_binding").
 values.Value.late_binding = True
 
 
