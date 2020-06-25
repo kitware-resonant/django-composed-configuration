@@ -11,8 +11,8 @@ class DjangoMixin(ConfigMixin):
 
     Downstreams must explicitly define the settings:
     * `WSGI_APPLICATION`, as a string with the Python import path of the WSGI `application` in the
-      `wsgi.py` file
-    * `ROOT_URLCONF`, as a string with the Python import path of the base `urls.py` file
+      `wsgi.py` file.
+    * `ROOT_URLCONF`, as a string with the Python import path of the base `urls.py` file.
 
     The following environment variables must be externally set:
     * `SECRET_KEY`, as a random string.
