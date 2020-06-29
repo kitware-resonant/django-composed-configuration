@@ -23,7 +23,6 @@ class _BaseConfiguration(
     CorsMixin,
     WhitenoiseStaticFileMixin,
     DatabaseMixin,
-    EmailMixin,
     LoggingMixin,
     # DjangoMixin should be loaded first
     DjangoMixin,
@@ -35,6 +34,7 @@ class _BaseConfiguration(
 class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, _BaseConfiguration):
     DEBUG = True
     SECRET_KEY = 'insecuresecret'
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
     ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
     CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
         [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
@@ -45,7 +45,7 @@ class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, _BaseConfigura
     INTERNAL_IPS = ['127.0.0.1']
 
 
-class ProductionBaseConfiguration(S3StorageMixin, _BaseConfiguration):
+class ProductionBaseConfiguration(EmailMixin, S3StorageMixin, _BaseConfiguration):
     pass
 
 
