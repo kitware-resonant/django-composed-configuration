@@ -14,7 +14,7 @@ def _filter_favicon_messages(record):
     ):
         return False
 
-    if record.name == 'django.server' and '/favicon.ico' in record.args[0]:
+    if record.name == 'django.server' and '/favicon.ico' in str(record.args[0]):
         return False
 
     return True
