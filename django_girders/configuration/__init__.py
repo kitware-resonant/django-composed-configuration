@@ -11,6 +11,7 @@ from ._debug import DebugMixin
 from ._django import DjangoMixin
 from ._email import EmailMixin
 from ._extensions import ExtensionsMixin
+from ._filter import FilterMixin
 from ._logging import LoggingMixin
 from ._rest_framwork import RestFrameworkMixin
 from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
@@ -28,6 +29,7 @@ __all__ = [
     'DjangoMixin',
     'EmailMixin',
     'ExtensionsMixin',
+    'FilterMixin',
     'HerokuProductionBaseConfiguration',
     'LoggingMixin',
     'MinioStorageMixin',
