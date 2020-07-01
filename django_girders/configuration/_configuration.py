@@ -37,6 +37,7 @@ class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, _BaseConfigura
     DEBUG = True
     SECRET_KEY = 'insecuresecret'
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DJANGO_DEFAULT_FROM_EMAIL = 'webmaster@localhost'
     ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
     CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
         [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
