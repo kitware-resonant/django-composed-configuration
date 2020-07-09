@@ -21,7 +21,7 @@ class MinioStorageMixin(_StorageMixin):
     * DJANGO_STORAGE_BUCKET_NAME
     """
 
-    DEFAULT_FILE_STORAGE = 'django_girders.storage.BaseUrlMinioMediaStorage'
+    DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
     MINIO_STORAGE_ENDPOINT = values.Value('localhost:9000')
     MINIO_STORAGE_USE_HTTPS = False
     MINIO_STORAGE_ACCESS_KEY = values.SecretValue()
