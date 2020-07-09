@@ -47,6 +47,10 @@ class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, _BaseConfigura
     # sends requests from the host machine via a dedicated IP address
     INTERNAL_IPS = ['127.0.0.1']
 
+    # Setting this allows MinIO to work through network namespace partitions
+    # (e.g. when running within Docker Compose)
+    MINIO_STORAGE_MEDIA_URL = values.Value(None)
+
 
 class ProductionBaseConfiguration(EmailMixin, S3StorageMixin, _BaseConfiguration):
     pass
