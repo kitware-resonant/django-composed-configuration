@@ -10,7 +10,7 @@ from ._email import EmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
 from ._logging import LoggingMixin
-from ._rest_framwork import RestFrameworkMixin
+from ._rest_framework import RestFrameworkMixin
 from ._static import WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
