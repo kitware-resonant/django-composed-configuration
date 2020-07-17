@@ -9,7 +9,7 @@ from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
 from ._django import DjangoMixin
-from ._email import EmailMixin
+from ._email import ConsoleEmailMixin, SmtpEmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
 from ._logging import LoggingMixin
@@ -22,12 +22,12 @@ __all__ = [
     'CeleryMixin',
     'ComposedConfiguration',
     'ConfigMixin',
+    'ConsoleEmailMixin',
     'CorsMixin',
     'DatabaseMixin',
     'DebugMixin',
     'DevelopmentBaseConfiguration',
     'DjangoMixin',
-    'EmailMixin',
     'ExtensionsMixin',
     'FilterMixin',
     'HerokuProductionBaseConfiguration',
@@ -36,6 +36,7 @@ __all__ = [
     'ProductionBaseConfiguration',
     'RestFrameworkMixin',
     'S3StorageMixin',
+    'SmtpEmailMixin',
     'StaticFileMixin',
     'WhitenoiseStaticFileMixin',
 ]
