@@ -5,7 +5,13 @@ from configurations import values
 from ._base import ComposedConfiguration, ConfigMixin
 
 
-class EmailMixin(ConfigMixin):
+class _EmailMixin(ConfigMixin):
+    """Abstract base for email configs."""
+
+    pass
+
+
+class SmtpEmailMixin(_EmailMixin):
     """
     Configure Django's email sending.
 
@@ -35,3 +41,7 @@ class EmailMixin(ConfigMixin):
     # Set both settings from DJANGO_DEFAULT_FROM_EMAIL
     DEFAULT_FROM_EMAIL = values.EmailValue(environ_required=True)
     SERVER_EMAIL = values.EmailValue(environ_name='DEFAULT_FROM_EMAIL', environ_required=True)
+
+
+class ConsoleEmailMixin(_EmailMixin):
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

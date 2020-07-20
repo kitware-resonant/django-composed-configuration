@@ -6,7 +6,7 @@ from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
 from ._django import DjangoMixin
-from ._email import EmailMixin
+from ._email import ConsoleEmailMixin, SmtpEmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
 from ._logging import LoggingMixin
@@ -33,16 +33,16 @@ class _BaseConfiguration(
     pass
 
 
-class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, _BaseConfiguration):
+class DevelopmentBaseConfiguration(
+    DebugMixin, ConsoleEmailMixin, MinioStorageMixin, _BaseConfiguration
+):
     DEBUG = True
     SECRET_KEY = 'insecuresecret'
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-    DJANGO_DEFAULT_FROM_EMAIL = 'webmaster@localhost'
+
     ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
     CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
         [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
     )
-
     # INTERNAL_IPS does not work properly when this is run within Docker, since the bridge
     # sends requests from the host machine via a dedicated IP address
     INTERNAL_IPS = ['127.0.0.1']
@@ -52,7 +52,7 @@ class DevelopmentBaseConfiguration(DebugMixin, MinioStorageMixin, _BaseConfigura
     MINIO_STORAGE_MEDIA_URL = values.Value(None)
 
 
-class ProductionBaseConfiguration(EmailMixin, S3StorageMixin, _BaseConfiguration):
+class ProductionBaseConfiguration(SmtpEmailMixin, S3StorageMixin, _BaseConfiguration):
     pass
 
 
