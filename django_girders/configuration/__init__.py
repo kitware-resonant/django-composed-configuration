@@ -4,6 +4,7 @@ from ._configuration import (
     DevelopmentBaseConfiguration,
     HerokuProductionBaseConfiguration,
     ProductionBaseConfiguration,
+    TestingBaseConfiguration,
 )
 from ._cors import CorsMixin
 from ._database import DatabaseMixin
@@ -38,5 +39,6 @@ __all__ = [
     'S3StorageMixin',
     'SmtpEmailMixin',
     'StaticFileMixin',
+    'TestingBaseConfiguration',
     'WhitenoiseStaticFileMixin',
 ]

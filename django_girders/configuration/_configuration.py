@@ -1,3 +1,5 @@
+from typing import List
+
 from configurations import values
 
 from ._base import ComposedConfiguration
@@ -50,6 +52,17 @@ class DevelopmentBaseConfiguration(
     # Setting this allows MinIO to work through network namespace partitions
     # (e.g. when running within Docker Compose)
     MINIO_STORAGE_MEDIA_URL = values.Value(None)
+
+
+class TestingBaseConfiguration(MinioStorageMixin, _BaseConfiguration):
+    SECRET_KEY = 'testingsecret'
+
+    # Testing will add 'testserver' to ALLOWED_HOSTS
+    ALLOWED_HOSTS: List[str] = []
+
+    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'test-django-storage'
+
+    # Testing will set EMAIL_BACKEND to use the memory backend
 
 
 class ProductionBaseConfiguration(SmtpEmailMixin, S3StorageMixin, _BaseConfiguration):
