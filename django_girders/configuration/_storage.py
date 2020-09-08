@@ -63,6 +63,4 @@ class S3StorageMixin(_StorageMixin):
     )
     AWS_S3_MAX_MEMORY_SIZE = 5 * 1024 * 1024
     AWS_S3_FILE_OVERWRITE = False
-    AWS_AUTO_CREATE_BUCKET = False
     AWS_QUERYSTRING_EXPIRE = 3600 * 6  # 6 hours
-    AWS_DEFAULT_ACL = None
