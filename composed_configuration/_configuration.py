@@ -2,6 +2,7 @@ from typing import List
 
 from configurations import values
 
+from ._allauth import AllauthMixin
 from ._base import ComposedConfiguration
 from ._celery import CeleryMixin
 from ._cors import CorsMixin
@@ -31,6 +32,7 @@ class _BaseConfiguration(
     LoggingMixin,
     # DjangoMixin should be loaded first
     DjangoMixin,
+    AllauthMixin,
     ComposedConfiguration,
 ):
     pass
