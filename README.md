@@ -1,2 +1,2 @@
-# django-girders
-Django utilities for data management applications
+# django-composed-configuration
+Turnkey Django settings for data management applications
