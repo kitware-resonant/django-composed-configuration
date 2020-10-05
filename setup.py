@@ -8,20 +8,20 @@ with readme_file.open() as f:
     long_description = f.read()
 
 setup(
-    name='django-girders',
+    name='django-composed-configuration',
     version='0.0.11',
-    description='Django utilities for data management applications',
+    description='Turnkey Django settings for data management applications',
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='Apache 2.0',
-    url='https://github.com/brianhelba/django-girders',
+    url='https://github.com/girder/django-composed-configuration',
     project_urls={
-        'Bug Reports': 'https://github.com/brianhelba/django-girders/issues',
-        'Source': 'https://github.com/brianhelba/django-girders',
+        'Bug Reports': 'https://github.com/girder/django-composed-configuration/issues',
+        'Source': 'https://github.com/girder/django-composed-configuration',
     },
     author='Kitware, Inc',
     author_email='kitware@kitware.com',
-    keywords='django girder girders',
+    keywords='django girder configuration configurations setting settings',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
