@@ -1,4 +1,4 @@
-import os
+from pathlib import Path
 from typing import Type
 
 from configurations import values
@@ -13,15 +13,15 @@ class StaticFileMixin(ConfigMixin):
     This could be used directly, but is typically included implicitly by WhitenoiseStaticFileMixin.
 
     Downstreams must explicitly define the settings:
-    * `BASE_DIR`, as the path to the project root. This can typically be done as:
-      `BASE_DIR = str(pathlib.Path(__file__).absolute().parent.parent)`.
+    * `BASE_DIR`, as the pathlib Path to the project root. This can typically be done as:
+      `BASE_DIR = Path(__file__).resolve(strict=True).parent.parent`.
     """
 
     STATIC_URL = '/static/'
 
     # BASE_DIR is in Django's startproject template, but isn't actually used as a real setting
     @property
-    def BASE_DIR(self):  # noqa: N802
+    def BASE_DIR(self) -> Path:  # noqa: N802
         raise Exception('BASE_DIR must be explicitly set to the path of the Django project root.')
 
     @property
@@ -29,7 +29,7 @@ class StaticFileMixin(ConfigMixin):
         # Django staticfiles creates any intermediate directories which don't exist
         # TODO: allow from env?
         return values.PathValue(
-            os.path.join(self.BASE_DIR, 'staticfiles'),
+            str(Path(self.BASE_DIR) / 'staticfiles'),
             environ=False,
             check_exists=False,
             # Disable late_binding, to make this return an actual str, not a Value, since some
