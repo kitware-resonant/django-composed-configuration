@@ -1,4 +1,4 @@
-from typing import cast, Dict, Type
+from typing import Dict, Type, cast
 
 from configurations import values
 

@@ -18,7 +18,6 @@ from ._rest_framework import RestFrameworkMixin
 from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
-
 __all__ = [
     'CeleryMixin',
     'ComposedConfiguration',
