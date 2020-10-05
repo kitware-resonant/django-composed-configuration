@@ -11,6 +11,7 @@ from ._django import DjangoMixin
 from ._email import ConsoleEmailMixin, SmtpEmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
+from ._https import HttpsMixin
 from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
 from ._static import WhitenoiseStaticFileMixin
@@ -65,7 +66,7 @@ class TestingBaseConfiguration(MinioStorageMixin, _BaseConfiguration):
     # Testing will set EMAIL_BACKEND to use the memory backend
 
 
-class ProductionBaseConfiguration(SmtpEmailMixin, S3StorageMixin, _BaseConfiguration):
+class ProductionBaseConfiguration(SmtpEmailMixin, S3StorageMixin, HttpsMixin, _BaseConfiguration):
     pass
 
 
@@ -82,3 +83,5 @@ class HerokuProductionBaseConfiguration(ProductionBaseConfiguration):
     CELERY_BROKER_URL = values.Value(
         environ_name='CLOUDAMQP_URL', environ_prefix=None, environ_required=True
     )
+    # https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')

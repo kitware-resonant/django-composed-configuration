@@ -13,6 +13,7 @@ from ._django import DjangoMixin
 from ._email import ConsoleEmailMixin, SmtpEmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
+from ._https import HttpsMixin
 from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
 from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
@@ -31,6 +32,7 @@ __all__ = [
     'ExtensionsMixin',
     'FilterMixin',
     'HerokuProductionBaseConfiguration',
+    'HttpsMixin',
     'LoggingMixin',
     'MinioStorageMixin',
     'ProductionBaseConfiguration',
