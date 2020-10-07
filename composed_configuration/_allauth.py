@@ -7,17 +7,19 @@ class AllauthMixin(ConfigMixin):
     """
     Configure Django Allauth.
 
-    This requires the django-allauth package to be installed.
+    This requires the django-allauth and django-material packages to be installed.
     """
 
     @staticmethod
     def before_binding(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
             'django.contrib.sites',
+            'composed_configuration.authentication',
             'allauth',
             'allauth.account',
             'allauth.socialaccount',
             'allauth.socialaccount.providers.google',
+            'material',
         ]
 
     AUTHENTICATION_BACKENDS = [
@@ -32,7 +34,7 @@ class AllauthMixin(ConfigMixin):
     ACCOUNT_AUTHENTICATION_METHOD = 'email'
     ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None
-    ACCOUNT_ADAPTER = 'composed_configuration.authentication.EmailAsUsernameAccountAdapter'
+    ACCOUNT_ADAPTER = 'composed_configuration.authentication.adapter.EmailAsUsernameAccountAdapter'
     ACCOUNT_LOGOUT_ON_GET = True
     ACCOUNT_CONFIRM_EMAIL_ON_GET = True
     ACCOUNT_PRESERVE_USERNAME_CASING = False
