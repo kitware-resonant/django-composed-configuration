@@ -1,7 +1,7 @@
 from ._base import ConfigMixin
 
 
-def _filter_favicon_messages(record):
+def _filter_favicon_requests(record):
     if (
         record.name == 'django.request'
         and hasattr(record, 'request')
@@ -9,7 +9,14 @@ def _filter_favicon_messages(record):
     ):
         return False
 
-    if record.name == 'django.server' and '/favicon.ico' in str(record.args[0]):
+    if record.name == 'django.server' and str(record.args[0]).startswith('GET /favicon.ico '):
+        return False
+
+    return True
+
+
+def _filter_static_requests(record):
+    if record.name == 'django.server' and str(record.args[0]).startswith('GET /static/'):
         return False
 
     return True
@@ -32,16 +39,20 @@ class LoggingMixin(ConfigMixin):
         'disable_existing_loggers': False,
         'formatters': {'rich': {'datefmt': '[%X]'}},
         'filters': {
-            'filter_favicon_messages': {
+            'filter_favicon_requests': {
                 '()': 'django.utils.log.CallbackFilter',
-                'callback': _filter_favicon_messages,
+                'callback': _filter_favicon_requests,
+            },
+            'filter_static_requests': {
+                '()': 'django.utils.log.CallbackFilter',
+                'callback': _filter_static_requests,
             },
         },
         'handlers': {
             'console': {
                 'class': 'rich.logging.RichHandler',
                 'formatter': 'rich',
-                'filters': ['filter_favicon_messages'],
+                'filters': ['filter_favicon_requests', 'filter_static_requests'],
             },
         },
         # Existing loggers actually contain direct (non-string) references to existing handlers,
