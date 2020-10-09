@@ -52,7 +52,7 @@ class SentryConfig(ConfigMixin):
             dsn=configuration.SENTRY_DSN,
             integrations=integrations,
             # Send traces for non-exception events too
-            attach_stacktrack=True,
+            attach_stacktrace=True,
             # Submit request User info from Django
             send_default_pii=True,
         )
