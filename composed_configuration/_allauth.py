@@ -17,8 +17,6 @@ class AllauthMixin(ConfigMixin):
             'composed_configuration.authentication',
             'allauth',
             'allauth.account',
-            'allauth.socialaccount',
-            'allauth.socialaccount.providers.google',
             'material',
         ]
 
