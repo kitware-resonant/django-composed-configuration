@@ -14,32 +14,45 @@ class AllauthMixin(ConfigMixin):
     def before_binding(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
             'django.contrib.sites',
-            'composed_configuration.authentication',
+            'composed_configuration.authentication.apps.AuthenticationConfig',
             'allauth',
             'allauth.account',
             'material',
         ]
 
     AUTHENTICATION_BACKENDS = [
-        'django.contrib.auth.backends.ModelBackend',
+        # Django's built-in ModelBackend is not necessary, since all users will be
+        # authenticated by their email address
         'allauth.account.auth_backends.AuthenticationBackend',
     ]
 
     # see configuration documentation at
     #   https://django-allauth.readthedocs.io/en/latest/configuration.html
-    ACCOUNT_USERNAME_REQUIRED = False
-    ACCOUNT_EMAIL_REQUIRED = True
-    ACCOUNT_AUTHENTICATION_METHOD = 'email'
+
+    # Require email verification, but this can be overridden
     ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-    ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+    # Make Django and Allauth redirects consistent, but both may be overridden
+    LOGIN_REDIRECT_URL = '/'
+    ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+
+    # Use email as the identifier for login
+    ACCOUNT_AUTHENTICATION_METHOD = 'email'
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_USERNAME_REQUIRED = False
+
+    # Set the username as the email
     ACCOUNT_ADAPTER = 'composed_configuration.authentication.adapter.EmailAsUsernameAccountAdapter'
-    ACCOUNT_LOGOUT_ON_GET = True
-    ACCOUNT_CONFIRM_EMAIL_ON_GET = True
-    ACCOUNT_PRESERVE_USERNAME_CASING = False
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None
+
+    # Quality of life improvements
     ACCOUNT_SESSION_REMEMBER = True
     ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
     ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
 
-    # should be overridden by downstream projects to point to valid urls
-    LOGIN_REDIRECT_URL = '/'
-    ACCOUNT_LOGOUT_REDIRECT_URL = '/'
+    # These will permit GET requests to mutate the user state, but significantly improve usability
+    ACCOUNT_LOGOUT_ON_GET = True
+    ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+
+    # This will likely become the default in the future, but enable it now
+    ACCOUNT_PRESERVE_USERNAME_CASING = False
