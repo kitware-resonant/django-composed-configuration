@@ -7,7 +7,7 @@ class AllauthMixin(ConfigMixin):
     """
     Configure Django Allauth.
 
-    This requires the django-allauth and django-material packages to be installed.
+    This requires the django-allauth package to be installed.
     """
 
     @staticmethod
@@ -17,7 +17,6 @@ class AllauthMixin(ConfigMixin):
             'composed_configuration.authentication.apps.AuthenticationConfig',
             'allauth',
             'allauth.account',
-            'material',
         ]
 
     AUTHENTICATION_BACKENDS = [
