@@ -1,3 +1,4 @@
+from ._allauth import AllauthMixin
 from ._base import ComposedConfiguration, ConfigMixin
 from ._celery import CeleryMixin
 from ._configuration import (
@@ -21,6 +22,7 @@ from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
 __all__ = [
+    'AllauthMixin',
     'CeleryMixin',
     'ComposedConfiguration',
     'ConfigMixin',

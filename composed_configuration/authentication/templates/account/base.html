@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>{% block head_title %}{% endblock %}</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    {% include 'material/includes/material_css.html' %}
+    {% include 'material/includes/material_js.html' %}
+
+    <style type="text/css" media="screen">
+      .account-card {
+        width: 500px;
+        margin: 20px auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card account-card">
+      <div class="card-content">
+        {% block content %}{% endblock %}
+      </div>
+    </div>
+  </body>
+</html>
