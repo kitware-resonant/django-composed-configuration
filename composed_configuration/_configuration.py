@@ -31,9 +31,9 @@ class _BaseConfiguration(
     WhitenoiseStaticFileMixin,
     DatabaseMixin,
     LoggingMixin,
+    AllauthMixin,
     # DjangoMixin should be loaded first
     DjangoMixin,
-    AllauthMixin,
     ComposedConfiguration,
 ):
     pass
