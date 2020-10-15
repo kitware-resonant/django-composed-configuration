@@ -17,6 +17,7 @@ class AllauthMixin(ConfigMixin):
             'composed_configuration.authentication.apps.AuthenticationConfig',
             'allauth',
             'allauth.account',
+            'allauth.socialaccount',
         ]
 
     AUTHENTICATION_BACKENDS = [

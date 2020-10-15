@@ -1,25 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8">
     <title>{% block head_title %}{% endblock %}</title>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    {% include 'material/includes/material_css.html' %}
-    {% include 'material/includes/material_js.html' %}
-
-    <style type="text/css" media="screen">
-      .account-card {
-        width: 500px;
-        margin: 20px auto;
-      }
-    </style>
+    {% block extra_head %}
+    {% endblock %}
   </head>
   <body>
-    <div class="card account-card">
-      <div class="card-content">
-        {% block content %}{% endblock %}
-      </div>
+    {% block body %}
+
+    {% if messages %}
+    <div>
+      <strong>Messages:</strong>
+      <ul>
+        {% for message in messages %}
+        <li>{{message}}</li>
+        {% endfor %}
+      </ul>
     </div>
+    {% endif %}
+
+    <div>
+      <strong>Menu:</strong>
+      <ul>
+        {% if user.is_authenticated %}
+        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
+        {% else %}
+        <li><a href="{% url 'account_login' %}">Sign In</a></li>
+        <li><a href="{% url 'account_signup' %}">Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </div>
+    {% block content %}
+    {% endblock %}
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
   </body>
 </html>
