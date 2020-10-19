@@ -51,7 +51,7 @@ class AllauthMixin(ConfigMixin):
     ACCOUNT_ADAPTER = 'composed_configuration.authentication.adapter.EmailAsUsernameAccountAdapter'
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
-    # Quality of life improvements
+    # Quality of life improvements, but may not work if the browser is closed
     ACCOUNT_SESSION_REMEMBER = True
     ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
     ACCOUNT_LOGIN_ON_PASSWORD_RESET = True
