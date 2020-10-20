@@ -61,6 +61,11 @@ class S3StorageMixin(_StorageMixin):
     AWS_STORAGE_BUCKET_NAME = values.Value(
         environ_name='STORAGE_BUCKET_NAME', environ_required=True
     )
+
+    # It's critical to use the v4 signature;
+    # it isn't the upstream default only for backwards compatability reasons.
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
+
     AWS_S3_MAX_MEMORY_SIZE = 5 * 1024 * 1024
     AWS_S3_FILE_OVERWRITE = False
     AWS_QUERYSTRING_EXPIRE = 3600 * 6  # 6 hours
