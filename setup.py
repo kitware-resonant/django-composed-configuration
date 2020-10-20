@@ -8,7 +8,7 @@ with readme_file.open() as f:
 
 setup(
     name='django-composed-configuration',
-    version='0.6.0',
+    version='0.7.0',
     description='Turnkey Django settings for data management applications',
     long_description=long_description,
     long_description_content_type='text/markdown',
