@@ -36,4 +36,6 @@ setup(
     python_requires='>=3.8',
     packages=find_packages(),
     install_requires=['django>=3', 'django-configurations[database,email]'],
+    include_package_data=True,
+    zip_safe=False,
 )

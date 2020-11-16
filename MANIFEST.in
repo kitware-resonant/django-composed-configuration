@@ -1,0 +1,1 @@
+recursive-include composed_configuration *.html *.txt
