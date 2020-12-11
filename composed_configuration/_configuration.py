@@ -15,7 +15,7 @@ from ._filter import FilterMixin
 from ._https import HttpsMixin
 from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
-from ._sentry import SentryConfig
+from ._sentry import SentryMixin
 from ._static import WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
@@ -70,7 +70,7 @@ class TestingBaseConfiguration(MinioStorageMixin, _BaseConfiguration):
 
 
 class ProductionBaseConfiguration(
-    SentryConfig, SmtpEmailMixin, S3StorageMixin, HttpsMixin, _BaseConfiguration
+    SentryMixin, SmtpEmailMixin, S3StorageMixin, HttpsMixin, _BaseConfiguration
 ):
     pass
 

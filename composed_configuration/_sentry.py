@@ -5,7 +5,7 @@ from configurations import values
 from ._base import ComposedConfiguration, ConfigMixin
 
 
-class SentryConfig(ConfigMixin):
+class SentryMixin(ConfigMixin):
     """
     Configure Sentry.io error reporting.
 
