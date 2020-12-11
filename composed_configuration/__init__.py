@@ -17,7 +17,7 @@ from ._filter import FilterMixin
 from ._https import HttpsMixin
 from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
-from ._sentry import SentryConfig
+from ._sentry import SentryMixin
 from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
@@ -41,7 +41,7 @@ __all__ = [
     'ProductionBaseConfiguration',
     'RestFrameworkMixin',
     'S3StorageMixin',
-    'SentryConfig',
+    'SentryMixin',
     'SmtpEmailMixin',
     'StaticFileMixin',
     'TestingBaseConfiguration',
