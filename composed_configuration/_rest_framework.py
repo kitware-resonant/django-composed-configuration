@@ -18,7 +18,11 @@ class RestFrameworkMixin(ConfigMixin):
         'DEFAULT_AUTHENTICATION_CLASSES': [
             'rest_framework.authentication.BasicAuthentication',
             'rest_framework.authentication.TokenAuthentication',
-        ]
+        ],
+        # This provides a sane default for requests that do not specify a page size.
+        # This also ensures that endpoints with pagination will always return a
+        # pagination-structured response.
+        'PAGE_SIZE': 100,
     }
 
     SWAGGER_SETTINGS = {
