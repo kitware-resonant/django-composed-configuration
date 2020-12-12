@@ -1,4 +1,4 @@
-from typing import List
+from typing import List, Optional, Tuple
 
 from configurations import values
 
@@ -75,7 +75,9 @@ class ProductionBaseConfiguration(
     pass
 
 
-class HerokuProductionBaseConfiguration(ProductionBaseConfiguration):
+# Separate these settings for potential reuse, but this may not be usable enough to make public
+# yet, given the fragility of ensuring that this is added as a superclass in the correct order.
+class _HerokuMixin:
     # Use different env var names (with no DJANGO_ prefix) for services that Heroku auto-injects
     DATABASES = values.DatabaseURLValue(
         environ_name='DATABASE_URL',
@@ -89,4 +91,8 @@ class HerokuProductionBaseConfiguration(ProductionBaseConfiguration):
         environ_name='CLOUDAMQP_URL', environ_prefix=None, environ_required=True
     )
     # https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
-    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_PROXY_SSL_HEADER: Optional[Tuple[str, str]] = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+
+class HerokuProductionBaseConfiguration(_HerokuMixin, ProductionBaseConfiguration):
+    pass
