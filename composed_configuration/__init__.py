@@ -1,3 +1,5 @@
+from importlib.metadata import PackageNotFoundError, version
+
 from ._allauth import AllauthMixin
 from ._base import ComposedConfiguration, ConfigMixin
 from ._celery import CeleryMixin
@@ -47,3 +49,9 @@ __all__ = [
     'TestingBaseConfiguration',
     'WhitenoiseStaticFileMixin',
 ]
+
+try:
+    __version__ = version('django-composed-configuration')
+except PackageNotFoundError:
+    # package is not installed
+    pass
