@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from setuptools import setup
+from setuptools import find_packages, setup
 
 readme_file = Path(__file__).parent / 'README.md'
 with readme_file.open() as f:
@@ -34,6 +34,7 @@ setup(
     ],
     python_requires='>=3.8',
     install_requires=['django>=3', 'django-configurations[database,email]'],
+    packages=find_packages(),
     include_package_data=True,
     # Django templates cannot be streamed from a ZIP
     zip_safe=False,
