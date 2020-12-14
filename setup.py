@@ -37,6 +37,4 @@ setup(
     install_requires=['django>=3', 'django-configurations[database,email]'],
     packages=find_packages(),
     include_package_data=True,
-    # Django templates cannot be streamed from a ZIP
-    zip_safe=False,
 )
