@@ -34,7 +34,11 @@ setup(
         'Programming Language :: Python',
     ],
     python_requires='>=3.8',
-    install_requires=['django>=3', 'django-configurations[database,email]'],
+    install_requires=[
+        'django>=3',
+        'django-configurations[database,email]',
+        'django-oauth-toolkit==1.3.2',
+    ],
     packages=find_packages(),
     include_package_data=True,
 )
