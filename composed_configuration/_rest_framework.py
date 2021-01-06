@@ -7,8 +7,8 @@ class RestFrameworkMixin(ConfigMixin):
     """
     Configure Django REST Framework.
 
-    This requires the `django-cors-headers`, `django-oauth-toolkit`, and `drf-yasg`
-    packages to be installed.
+    This requires the `django-cors-headers`, `django-girder-utils`, `django-oauth-toolkit`,
+    and `drf-yasg` packages to be installed.
     """
 
     @staticmethod
@@ -32,6 +32,8 @@ class RestFrameworkMixin(ConfigMixin):
             # OAuth can support both.
             'rest_framework.authentication.BasicAuthentication',
         ],
+        # BoundedLimitOffsetPagination provides LimitOffsetPagination with a maximum page size
+        'DEFAULT_PAGINATION_CLASS': 'girder_utils.rest_framework.BoundedLimitOffsetPagination',
         # This provides a sane default for requests that do not specify a page size.
         # This also ensures that endpoints with pagination will always return a
         # pagination-structured response.
