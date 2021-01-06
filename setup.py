@@ -12,6 +12,7 @@ _base_extras = [
     'django-cors-headers',
     'django-extensions',
     'django-filter',
+    'django-girder-utils',
     'django-oauth-toolkit==1.3.2',
     'drf-yasg',
     'rich',
