@@ -7,7 +7,7 @@ class RestFrameworkMixin(ConfigMixin):
     """
     Configure Django REST Framework.
 
-    This requires the `django-cors-headers`, `django-oauth-toolkit`, and `drf-yasg2`
+    This requires the `django-cors-headers`, `django-oauth-toolkit`, and `drf-yasg`
     packages to be installed.
     """
 
@@ -17,7 +17,7 @@ class RestFrameworkMixin(ConfigMixin):
             'rest_framework',
             'rest_framework.authtoken',
             'oauth2_provider',
-            'drf_yasg2',
+            'drf_yasg',
         ]
 
         if configuration.DEBUG:
