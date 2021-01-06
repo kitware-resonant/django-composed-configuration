@@ -15,6 +15,7 @@ _base_extras = [
     'django-girder-utils',
     'django-oauth-toolkit==1.3.2',
     'drf-yasg',
+    'psycopg2',
     'rich',
     'whitenoise[brotli]',
 ]
