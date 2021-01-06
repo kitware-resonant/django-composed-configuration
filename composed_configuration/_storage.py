@@ -19,6 +19,8 @@ class MinioStorageMixin(_StorageMixin):
     * DJANGO_MINIO_STORAGE_ACCESS_KEY
     * DJANGO_MINIO_STORAGE_SECRET_KEY
     * DJANGO_STORAGE_BUCKET_NAME
+
+    This requires the `django-minio-storage` package to be installed.
     """
 
     DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
@@ -43,6 +45,8 @@ class S3StorageMixin(_StorageMixin):
     * AWS_ACCESS_KEY_ID
     * AWS_SECRET_ACCESS_KEY
     * DJANGO_STORAGE_BUCKET_NAME
+
+    This requires the `django-storages[boto3]` package to be installed.
     """
 
     DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
