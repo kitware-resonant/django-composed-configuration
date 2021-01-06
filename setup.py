@@ -6,6 +6,18 @@ readme_file = Path(__file__).parent / 'README.md'
 with readme_file.open() as f:
     long_description = f.read()
 
+_base_extras = [
+    'django>=3',
+    'django-allauth',
+    'django-cors-headers',
+    'django-extensions',
+    'django-filter',
+    'django-oauth-toolkit==1.3.2',
+    'drf-yasg',
+    'rich',
+    'whitenoise[brotli]',
+]
+
 setup(
     name='django-composed-configuration',
     description='Turnkey Django settings for data management applications',
@@ -35,10 +47,18 @@ setup(
     ],
     python_requires='>=3.8',
     install_requires=[
-        'django>=3',
         'django-configurations[database,email]',
-        'django-oauth-toolkit==1.3.2',
     ],
+    extras_require={
+        # Required for DevelopmentBaseConfiguration / TestingBaseConfiguration
+        'dev': _base_extras + ['django-debug-toolbar', 'django-minio-storage'],
+        # Required for ProductionBaseConfiguration
+        'prod': _base_extras
+        + [
+            'django-storages[boto3]',
+            'sentry-sdk',
+        ],
+    },
     packages=find_packages(),
     include_package_data=True,
 )
