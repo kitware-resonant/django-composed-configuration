@@ -62,6 +62,21 @@ class RestFrameworkMixin(ConfigMixin):
     SWAGGER_SETTINGS = {
         'SECURITY_DEFINITIONS': {
             'Basic': {'type': 'basic'},
+            'OAuth': {
+                'type': 'oauth2',
+                'description': 'OAuth2.0 Authorization Code',
+                'name': 'Authorization',
+                'in': 'header',
+                'flow': 'application',
+                # TODO: Generalize these, depending on where they're mounted
+                'authorizationUrl': '/oauth/authorize/',
+                'tokenUrl': '/oauth/token/',
+                # TODO: Pull from OAUTH2_PROVIDER['SCOPES']
+                'scopes': {
+                    'read': 'Reading scope',
+                    'write': 'Writing scope',
+                },
+            },
         }
     }
 
