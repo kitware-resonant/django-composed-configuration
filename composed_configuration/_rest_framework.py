@@ -71,6 +71,8 @@ class RestFrameworkMixin(ConfigMixin):
             # requests "withCredentials", but security is still maintained.
             'rest_framework.authentication.SessionAuthentication',
         ],
+        # This is a much more sensible degree of basic security
+        'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticatedOrReadOnly'],
         # BoundedLimitOffsetPagination provides LimitOffsetPagination with a maximum page size
         'DEFAULT_PAGINATION_CLASS': 'girder_utils.rest_framework.BoundedLimitOffsetPagination',
         # This provides a sane default for requests that do not specify a page size.
