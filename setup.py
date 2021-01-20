@@ -22,7 +22,7 @@ _base_extras = [
 
 setup(
     name='django-composed-configuration',
-    description='Turnkey Django settings for data management applications',
+    description='Turnkey Django settings for data management applications.',
     long_description=long_description,
     long_description_content_type='text/markdown',
     license='Apache 2.0',
@@ -31,7 +31,7 @@ setup(
         'Bug Reports': 'https://github.com/girder/django-composed-configuration/issues',
         'Source': 'https://github.com/girder/django-composed-configuration',
     },
-    author='Kitware, Inc',
+    author='Kitware, Inc.',
     author_email='kitware@kitware.com',
     keywords='django girder configuration configurations setting settings',
     classifiers=[
