@@ -27,6 +27,8 @@ class DebugMixin(ConfigMixin):
         # included in a production configuration
         # Only lookup the DEBUG setting once, instead of on every callback
         debug = self.DEBUG
+        # See https://django-debug-toolbar.readthedocs.io/en/latest/configuration.html#toolbar-options
         return {
             'SHOW_TOOLBAR_CALLBACK': lambda request: debug,
+            'DISABLE_PANELS': set(),
         }
