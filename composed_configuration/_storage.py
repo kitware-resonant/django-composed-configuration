@@ -1,6 +1,16 @@
+from typing import Type
+
 from configurations import values
 
-from ._base import ConfigMixin
+from ._base import ComposedConfiguration, ConfigMixin
+
+
+class StorageCleanupMixin(ConfigMixin):
+    @staticmethod
+    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+        configuration.INSTALLED_APPS += [
+            'django_cleanup.apps.CleanupConfig',
+        ]
 
 
 class _StorageMixin(ConfigMixin):
