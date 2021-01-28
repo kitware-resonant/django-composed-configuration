@@ -14,7 +14,8 @@ class AllauthMixin(ConfigMixin):
     def before_binding(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
             'django.contrib.sites',
-            'composed_configuration.authentication.apps.AuthenticationConfig',
+            # girder_style should come before others, to ensure its styling is applied
+            'girder_style',
             'allauth',
             'allauth.account',
             'allauth.socialaccount',
