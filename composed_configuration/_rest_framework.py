@@ -79,6 +79,8 @@ class RestFrameworkMixin(ConfigMixin):
         # This also ensures that endpoints with pagination will always return a
         # pagination-structured response.
         'PAGE_SIZE': 100,
+        # Real clients typically JSON-encode their request bodies, so the test client should too
+        'TEST_REQUEST_DEFAULT_FORMAT': 'json',
     }
 
     OAUTH2_PROVIDER = {
