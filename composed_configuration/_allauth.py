@@ -14,12 +14,13 @@ class AllauthMixin(ConfigMixin):
     def before_binding(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
             'django.contrib.sites',
-            # girder_style should come before others, to ensure its styling is applied
-            'girder_style',
             'allauth',
             'allauth.account',
             'allauth.socialaccount',
         ]
+
+        # girder_style should come before others, to ensure its template overrides are found
+        configuration.INSTALLED_APPS.insert(0, 'girder_style')
 
     # The sites framework requires this to be set.
     # In the unlikely case where a database's pk sequence for the django_site table is not reset,
