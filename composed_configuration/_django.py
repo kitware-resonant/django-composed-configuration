@@ -1,8 +1,8 @@
-from typing import NoReturn
+from typing import NoReturn, Type
 
 from configurations import values
 
-from ._base import ConfigMixin
+from ._base import ComposedConfiguration, ConfigMixin
 
 
 class DjangoMixin(ConfigMixin):
@@ -20,6 +20,26 @@ class DjangoMixin(ConfigMixin):
        which this server will be accessed.
     """
 
+    @staticmethod
+    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+        # These are often extended, so update their values to avoid fragility due to mixin ordering
+        configuration.INSTALLED_APPS += [
+            'django.contrib.admin',
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.messages',
+        ]
+        configuration.MIDDLEWARE += [
+            'django.middleware.security.SecurityMiddleware',
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.common.CommonMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        ]
+
     SECRET_KEY = values.SecretValue()
     ALLOWED_HOSTS = values.ListValue(environ_required=True)
 
@@ -30,24 +50,6 @@ class DjangoMixin(ConfigMixin):
     @property
     def ROOT_URLCONF(self) -> NoReturn:  # noqa: N802
         raise Exception('ROOT_URLCONF must be explicitly set.')
-
-    INSTALLED_APPS = [
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-    ]
-
-    MIDDLEWARE = [
-        'django.middleware.security.SecurityMiddleware',
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ]
 
     TEMPLATES = [
         {
