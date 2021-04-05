@@ -9,6 +9,7 @@ from ._cors import CorsMixin
 from ._database import DatabaseMixin
 from ._debug import DebugMixin
 from ._django import DjangoMixin
+from ._docker import _AlwaysContains, _is_docker
 from ._email import ConsoleEmailMixin, SmtpEmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
@@ -49,10 +50,13 @@ class DevelopmentBaseConfiguration(
     CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
         [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
     )
-    # INTERNAL_IPS does not work properly when this is run within Docker, since the bridge
-    # sends requests from the host machine via a dedicated IP address
-    INTERNAL_IPS = ['127.0.0.1']
 
+    # When in Docker, the bridge network sends requests from the host machine exclusively via a
+    # dedicated IP address. Since there's no way to determine the real origin address,
+    # consider any IP address (though actually this will only be the single dedicated address) to
+    # be internal. This relies on the host to set up appropriate firewalls for Docker, to prevent
+    # access from non-internal addresses.
+    INTERNAL_IPS = _AlwaysContains() if _is_docker() else ['127.0.0.1']
     # Setting this allows MinIO to work through network namespace partitions
     # (e.g. when running within Docker Compose)
     MINIO_STORAGE_MEDIA_URL = values.Value(None)
