@@ -9,14 +9,22 @@ def _filter_favicon_requests(record):
     ):
         return False
 
-    if record.name == 'django.server' and str(record.args[0]).startswith('GET /favicon.ico '):
+    if (
+        record.name == 'django.server'
+        and len(record.args) >= 1
+        and str(record.args[0]).startswith('GET /favicon.ico ')
+    ):
         return False
 
     return True
 
 
 def _filter_static_requests(record):
-    if record.name == 'django.server' and str(record.args[0]).startswith('GET /static/'):
+    if (
+        record.name == 'django.server'
+        and len(record.args) >= 1
+        and str(record.args[0]).startswith('GET /static/')
+    ):
         return False
 
     return True
