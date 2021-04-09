@@ -1,6 +1,7 @@
 from typing import Type
 
 from configurations import Configuration, values
+from configurations.base import ConfigurationBase
 
 # With the default "late_binding=False", and "environ_name" is specified or "environ=False",
 # even Values from non-included classes (e.g. `AWS_DEFAULT_REGION) get immediately evaluated and
@@ -9,21 +10,32 @@ from configurations import Configuration, values
 values.Value.late_binding = True
 
 
-class ComposedConfiguration(Configuration):
+# Fix https://github.com/jazzband/django-configurations/issues/263
+# Since this attribute is set by the metaclass, it exists on the already-instantied Configuration
+# class. It also will be re-set on every subclass, but since those are not instantied yet, we
+# can replace the metaclass for all subclasses with a fixed one.
+try:
+    del Configuration.DEFAULT_HASHING_ALGORITHM
+except AttributeError:
+    pass
+
+
+class FixedConfigurationBase(ConfigurationBase):
+    def __new__(cls, name, bases, attrs):
+        obj = super().__new__(cls, name, bases, attrs)
+        try:
+            del obj.DEFAULT_HASHING_ALGORITHM
+        except AttributeError:
+            pass
+        return obj
+
+
+class ComposedConfiguration(Configuration, metaclass=FixedConfigurationBase):
     """
     Abstract base for composed Configuration.
 
     This must always be specified as a base class after Config mixins.
     """
-
-    def __init__(self):
-        super().__init__()
-
-        # https://github.com/jazzband/django-configurations/issues/263
-        try:
-            del self.DEFAULT_HASHING_ALGORITHM
-        except AttributeError:
-            pass
 
     @classmethod
     def pre_setup(cls):
