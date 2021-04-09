@@ -16,6 +16,15 @@ class ComposedConfiguration(Configuration):
     This must always be specified as a base class after Config mixins.
     """
 
+    def __init__(self):
+        super().__init__()
+
+        # https://github.com/jazzband/django-configurations/issues/263
+        try:
+            del self.DEFAULT_HASHING_ALGORITHM
+        except AttributeError:
+            pass
+
     @classmethod
     def pre_setup(cls):
         super().pre_setup()
