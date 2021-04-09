@@ -68,9 +68,7 @@ class DjangoMixin(ConfigMixin):
         },
     ]
 
-    # Until https://github.com/pennersr/django-allauth/issues/2826 is fixed and released,
-    # this must be AutoField
-    DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
     # Password validation
     # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
