@@ -29,6 +29,7 @@ class DjangoMixin(ConfigMixin):
             'django.contrib.contenttypes',
             'django.contrib.sessions',
             'django.contrib.messages',
+            'django.contrib.humanize',
         ]
         configuration.MIDDLEWARE += [
             'django.middleware.security.SecurityMiddleware',
