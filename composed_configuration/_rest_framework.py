@@ -45,7 +45,7 @@ class RestFrameworkMixin(ConfigMixin):
             # robustly works across origins; however, it turns out that this can only be enforced
             # partially.
             # To understand why, first read https://web.dev/same-site-same-origin/ to understand
-            # that even with "SameSize=Lax" (or "SameSite=Strict"), cookies are only technically
+            # that even with "SameSite=Lax" (or "SameSite=Strict"), cookies are only technically
             # limited to same-site requests, and do not have the stronger same-origin limitation.
             # If a naive SPA developer configures their client to include credentials
             # ("{withCredentials: true}" in XHR, jQuery, and Axios, or "{credentials: 'include'}"
