@@ -19,3 +19,7 @@ class HttpsMixin(ConfigMixin):
     # This is already False by default, but it's important to ensure HSTS is not forced on other
     # subdomains which may have different HTTPS practices.
     SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+    # This is already False by default, but per https://hstspreload.org/#opt-in, projects should
+    # opt-in to preload by overriding this setting. Additionally, all subdomains must have HSTS to
+    # register for preloading.
+    SECURE_HSTS_PRELOAD = False
