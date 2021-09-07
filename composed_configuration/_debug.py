@@ -18,3 +18,5 @@ class DebugMixin(ConfigMixin):
         # However, it must come after any other middleware that encodes the response’s content,
         # such as GZipMiddleware.
         configuration.MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
+
+    RESULTS_CACHE_SIZE = 250
