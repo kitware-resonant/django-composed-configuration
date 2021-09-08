@@ -35,18 +35,23 @@ class CeleryMixin(ConfigMixin):
     def CELERY_TASK_ACKS_LATE(self):  # noqa: N802
         return False if self.DEBUG else True
 
-    # Ensure that unexpectedly killed tasks (e.g. due a cold shutdown from a SIGQUIT) will be
-    # requeued. However, this also causes tasks which are killed due to intrinsic causes (e.g. a
-    # segfault or OOM) to be requeued, whereby they are likely crash again.
+    # When a worker subprocess abruptly exists, assume it was is killed by the operating system for
+    # a cause which is intrinsic (e.g. a segfault or OOM) to the task it was running, so do not
+    # requeue. It's expected that the task wouldn't succeed if run again.
+    # This should not impact cases where the task fails due to extrinsic causes (e.g. the process
+    # supervisor sends a SIGKILL or the machine loses power), as we assume that the parent worker
+    # process will immediately die too (and not have a chance to requeue the task).
     # See: https://docs.celeryproject.org/en/stable/userguide/tasks.html#tasks for more explanation
     # of these tradeoffs.
-    # This does not affect warm shutdowns from a SIGTERM (which the process supervisor ought to
-    # send), which allows Celery to complete running tasks; see:
+    # None of this affects warm shutdowns from a SIGTERM (which the process supervisor ought to
+    # send), as this just allows Celery to complete running tasks; see:
     # https://docs.celeryproject.org/en/stable/userguide/workers.html#process-signals for reference.
-    CELERY_TASK_REJECT_ON_WORKER_LOST = True
+    # This is Celery's default.
+    CELERY_TASK_REJECT_ON_WORKER_LOST = False
 
-    # When tasks fail due to their own internally-raised exception or due to timeout, do not
-    # requeue. It's expected that they wouldn't succeed if run again. This is Celery's default.
+    # When a task fails due to an internally-raised exception or due to a timeout, do not requeue.
+    # It's expected that the task wouldn't succeed if run again.
+    # This is Celery's default.
     CELERY_TASK_ACKS_ON_FAILURE_OR_TIMEOUT = True
 
     # This is sensible behavior with TASKS_ACKS_LATE, this must be enabled to prevent warnings,
