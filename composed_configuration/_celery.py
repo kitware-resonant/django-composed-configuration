@@ -35,6 +35,10 @@ class CeleryMixin(ConfigMixin):
     def CELERY_TASK_ACKS_LATE(self):  # noqa: N802
         return False if self.DEBUG else True
 
+    # This is sensible behavior with TASKS_ACKS_LATE, this must be enabled to prevent warnings,
+    # and this will be Celery's default in 6.0.
+    CELERY_WORKER_CANCEL_LONG_RUNNING_TASKS_ON_CONNECTION_LOSS = True
+
     # CloudAMQP-suggested settings
     # https://www.cloudamqp.com/docs/celery.html
     CELERY_BROKER_POOL_LIMIT = 1
