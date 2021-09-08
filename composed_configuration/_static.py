@@ -38,7 +38,7 @@ class StaticFileMixin(ConfigMixin):
         )
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += ['django.contrib.staticfiles']
 
 
@@ -50,7 +50,7 @@ class WhitenoiseStaticFileMixin(StaticFileMixin):
     """
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         # Insert immediately before staticfiles app
         staticfiles_index = configuration.INSTALLED_APPS.index('django.contrib.staticfiles')
         configuration.INSTALLED_APPS.insert(staticfiles_index, 'whitenoise.runserver_nostatic')

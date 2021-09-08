@@ -16,7 +16,7 @@ class DatabaseMixin(ConfigMixin):
     """
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += ['django.contrib.postgres']
 
     # This cannot have a default value, since the password and database

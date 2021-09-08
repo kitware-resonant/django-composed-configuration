@@ -11,7 +11,7 @@ class DebugMixin(ConfigMixin):
     """
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += ['debug_toolbar']
 
         # Include Debug Toolbar middleware as early as possible in the list.

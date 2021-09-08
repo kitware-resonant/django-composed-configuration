@@ -21,7 +21,7 @@ class DjangoMixin(ConfigMixin):
     """
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         # These are often extended, so update their values to avoid fragility due to mixin ordering
         configuration.INSTALLED_APPS += [
             'django.contrib.admin',

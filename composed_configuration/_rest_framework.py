@@ -12,7 +12,7 @@ class RestFrameworkMixin(ConfigMixin):
     """
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
             'rest_framework',
             'rest_framework.authtoken',
