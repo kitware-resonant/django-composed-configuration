@@ -19,4 +19,7 @@ class DebugMixin(ConfigMixin):
         # such as GZipMiddleware.
         configuration.MIDDLEWARE.insert(0, 'debug_toolbar.middleware.DebugToolbarMiddleware')
 
-    RESULTS_CACHE_SIZE = 250
+    DEBUG_TOOLBAR_CONFIG = {
+        # The default size often is too small, causing an inability to view queries
+        'RESULTS_CACHE_SIZE': 250,
+    }
