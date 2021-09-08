@@ -42,5 +42,5 @@ class ProductionConfiguration(_ProjectMixin, ProductionBaseConfiguration):
 
 At runtime:
 * continue to set the `DJANGO_SETTINGS_MODULE` environment variable (pointing to `settings.py`)
-* also set `DJANGO_CONFIGURATION`, with a value of 
-  either `DevelopmentConfiguration` or `ProductionConfiguration` 
+* also set `DJANGO_CONFIGURATION`, with a value of
+  either `DevelopmentConfiguration` or `ProductionConfiguration`
