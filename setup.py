@@ -13,7 +13,7 @@ _base_extras = [
     'django-extensions',
     'django-filter',
     'django-girder-style',
-    'django-girder-utils',
+    'django-girder-utils>=0.9.0',
     # django-oauth-toolkit==1.3.3 doesn't have working PKCE
     'django-oauth-toolkit>=1.4.0',
     'drf-yasg',
