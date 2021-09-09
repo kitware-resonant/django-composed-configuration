@@ -16,6 +16,7 @@ from ._django import DjangoMixin
 from ._email import ConsoleEmailMixin, SmtpEmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
+from ._girder_utils import GirderUtilsMixin
 from ._https import HttpsMixin
 from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
@@ -36,6 +37,7 @@ __all__ = [
     'DjangoMixin',
     'ExtensionsMixin',
     'FilterMixin',
+    'GirderUtilsMixin',
     'HerokuProductionBaseConfiguration',
     'HttpsMixin',
     'LoggingMixin',

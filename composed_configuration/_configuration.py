@@ -13,6 +13,7 @@ from ._docker import _AlwaysContains, _is_docker
 from ._email import ConsoleEmailMixin, SmtpEmailMixin
 from ._extensions import ExtensionsMixin
 from ._filter import FilterMixin
+from ._girder_utils import GirderUtilsMixin
 from ._https import HttpsMixin
 from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
@@ -23,6 +24,7 @@ from ._storage import MinioStorageMixin, S3StorageMixin
 
 # Subclasses are loaded in last to first ordering
 class _BaseConfiguration(
+    GirderUtilsMixin,
     ExtensionsMixin,
     CeleryMixin,
     RestFrameworkMixin,
