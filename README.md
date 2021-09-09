@@ -24,7 +24,7 @@ class _ProjectMixin(ConfigMixin):
     pass
 
     @staticmethod
-    def before_binding(configuration: ComposedConfiguration) -> None:
+    def mutate_configuration(configuration: ComposedConfiguration) -> None:
         # Perform any non-overriding mutation of existing settings here
         # The "configuration" variable contains the flattened settings
         # For example:

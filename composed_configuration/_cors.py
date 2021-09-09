@@ -18,7 +18,7 @@ class CorsMixin(ConfigMixin):
     """
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += ['corsheaders']
 
         # CorsMiddleware must be added immediately before WhiteNoiseMiddleware, so this can

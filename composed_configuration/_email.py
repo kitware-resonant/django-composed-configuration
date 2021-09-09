@@ -23,7 +23,7 @@ class SmtpEmailMixin(_EmailMixin):
     """
 
     @staticmethod
-    def before_binding(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         email = cast(
             Dict[str, str],
             values.EmailURLValue(
