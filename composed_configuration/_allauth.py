@@ -19,6 +19,12 @@ class AllauthMixin(ConfigMixin):
             'allauth.socialaccount',
         ]
 
+        # Insert before before auth, so the overridden createsuperuser command is found first
+        auth_index = configuration.INSTALLED_APPS.index('django.contrib.auth')
+        configuration.INSTALLED_APPS.insert(
+            auth_index, 'composed_configuration._allauth_support.apps.AllauthSupportConfig'
+        )
+
         # girder_style should come before others, to ensure its template overrides are found
         configuration.INSTALLED_APPS.insert(0, 'girder_style')
 
