@@ -18,11 +18,12 @@ from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
 from ._sentry import SentryMixin
 from ._static import WhitenoiseStaticFileMixin
-from ._storage import MinioStorageMixin, S3StorageMixin
+from ._storage import MinioStorageMixin, S3StorageMixin, StorageCleanupMixin
 
 
 # Subclasses are loaded in last to first ordering
 class _BaseConfiguration(
+    StorageCleanupMixin,
     ExtensionsMixin,
     CeleryMixin,
     RestFrameworkMixin,

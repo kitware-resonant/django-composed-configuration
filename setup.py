@@ -9,6 +9,7 @@ with readme_file.open() as f:
 _base_extras = [
     'django>=3',
     'django-allauth',
+    'django-cleanup',
     'django-cors-headers',
     'django-extensions',
     'django-filter',

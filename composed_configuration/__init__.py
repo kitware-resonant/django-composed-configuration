@@ -21,7 +21,7 @@ from ._logging import LoggingMixin
 from ._rest_framework import RestFrameworkMixin
 from ._sentry import SentryMixin
 from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
-from ._storage import MinioStorageMixin, S3StorageMixin
+from ._storage import MinioStorageMixin, S3StorageMixin, StorageCleanupMixin
 
 __all__ = [
     'AllauthMixin',
@@ -46,6 +46,7 @@ __all__ = [
     'SentryMixin',
     'SmtpEmailMixin',
     'StaticFileMixin',
+    'StorageCleanupMixin',
     'TestingBaseConfiguration',
     'WhitenoiseStaticFileMixin',
 ]
