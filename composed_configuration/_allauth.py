@@ -50,7 +50,9 @@ class AllauthMixin(ConfigMixin):
     ACCOUNT_USERNAME_REQUIRED = False
 
     # Set the username as the email
-    ACCOUNT_ADAPTER = 'composed_configuration.authentication.adapter.EmailAsUsernameAccountAdapter'
+    ACCOUNT_ADAPTER = (
+        'composed_configuration._allauth_support.adapter.EmailAsUsernameAccountAdapter'
+    )
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 
     # Quality of life improvements, but may not work if the browser is closed
