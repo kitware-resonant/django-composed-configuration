@@ -48,7 +48,7 @@ class DevelopmentBaseConfiguration(
     DEBUG = True
     SECRET_KEY = 'insecuresecret'
 
-    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
+    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1', 'django'])
     CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
         [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
     )
