@@ -103,6 +103,14 @@ class _HerokuMixin:
     )
     # https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
     SECURE_PROXY_SSL_HEADER: Optional[Tuple[str, str]] = ('HTTP_X_FORWARDED_PROTO', 'https')
+    # This may be provided by https://github.com/ianpurvis/heroku-buildpack-version or similar
+    # The commit SHA is the preferred release tag for Git-based projects:
+    # https://docs.sentry.io/platforms/python/configuration/releases/#bind-the-version
+    SENTRY_RELEASE = values.Value(
+        None,
+        environ_name='SOURCE_VERSION',
+        environ_prefix=None,
+    )
 
 
 class HerokuProductionBaseConfiguration(_HerokuMixin, ProductionBaseConfiguration):
