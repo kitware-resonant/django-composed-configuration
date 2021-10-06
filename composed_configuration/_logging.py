@@ -1,16 +1,20 @@
+import logging
+from typing import Optional
+
+from django.http import HttpRequest
+
 from ._base import ConfigMixin
 
 
-def _filter_favicon_requests(record):
-    if (
-        record.name == 'django.request'
-        and hasattr(record, 'request')
-        and record.request.path == '/favicon.ico'
-    ):
-        return False
+def _filter_favicon_requests(record: logging.LogRecord) -> bool:
+    if record.name == 'django.request':
+        request: Optional[HttpRequest] = getattr(record, 'request', None)
+        if request and request.path == '/favicon.ico':
+            return False
 
     if (
         record.name == 'django.server'
+        and isinstance(record.args, tuple)
         and len(record.args) >= 1
         and str(record.args[0]).startswith('GET /favicon.ico ')
     ):
@@ -19,9 +23,10 @@ def _filter_favicon_requests(record):
     return True
 
 
-def _filter_static_requests(record):
+def _filter_static_requests(record: logging.LogRecord) -> bool:
     if (
         record.name == 'django.server'
+        and isinstance(record.args, tuple)
         and len(record.args) >= 1
         and str(record.args[0]).startswith('GET /static/')
     ):
