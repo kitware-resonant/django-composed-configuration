@@ -29,4 +29,6 @@ class SentryConfig(AppConfig):
             attach_stacktrace=True,
             # Submit request User info from Django
             send_default_pii=True,
+            # This is None by default, so performance monitoring is opt-in
+            traces_sample_rate=settings.SENTRY_TRACES_SAMPLE_RATE,
         )
