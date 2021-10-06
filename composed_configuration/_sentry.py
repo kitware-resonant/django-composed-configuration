@@ -29,4 +29,6 @@ class SentryMixin(ConfigMixin):
 
     SENTRY_RELEASE = values.Value(None)
 
-    SENTRY_TRACES_SAMPLE_RATE = values.Value(None)
+    # None is a valid default value, but if this is set via environment variable,
+    # the value must be interpretable as a float
+    SENTRY_TRACES_SAMPLE_RATE = values.FloatValue(None)
