@@ -1,9 +1,8 @@
 from pathlib import Path
 from typing import Type
 
-from configurations import values
-
 from ._base import ComposedConfiguration, ConfigMixin
+from ._values import DirectoryPathValue
 
 
 class StaticFileMixin(ConfigMixin):
@@ -26,12 +25,14 @@ class StaticFileMixin(ConfigMixin):
 
     @property
     def STATIC_ROOT(self):  # noqa: N802
-        # Django staticfiles creates any intermediate directories which don't exist
         # TODO: allow from env?
-        return values.PathValue(
+        return DirectoryPathValue(
             str(Path(self.BASE_DIR) / 'staticfiles'),
             environ=False,
             check_exists=False,
+            # Django staticfiles creates any intermediate directories which don't exist, but do
+            # so at the setting level to prevent warnings
+            ensure_exists=True,
             # Disable late_binding, to make this return an actual str, not a Value, since some
             # "os" module functions (which are called with this) do strict nominal type checking.
             late_binding=False,
