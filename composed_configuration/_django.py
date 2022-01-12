@@ -24,6 +24,7 @@ class DjangoMixin(ConfigMixin):
     def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
         # These are often extended, so update their values to avoid fragility due to mixin ordering
         configuration.INSTALLED_APPS += [
+            'jazzmin',
             'django.contrib.admin',
             'django.contrib.auth',
             'django.contrib.contenttypes',
