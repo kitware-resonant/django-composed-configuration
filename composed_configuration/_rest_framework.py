@@ -92,6 +92,10 @@ class RestFrameworkMixin(ConfigMixin):
         # If the scope itself is confidential, this could leak information. but the usability
         # benefit is probably worth it.
         'ERROR_RESPONSE_WITH_SCOPES': True,
+        # Allow 5 minutes for a flow to exchange an auth code for a token. This is typically
+        # 60 seconds but out-of-band flows may take a bit longer. A maximum of 10 minutes is
+        # recommended: https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2.
+        'AUTHORIZATION_CODE_EXPIRE_SECONDS': 300,
         # Django can persist logins for longer than this via cookies,
         # but non-refreshing clients will need to redirect to Django's auth every 24 hours.
         'ACCESS_TOKEN_EXPIRE_SECONDS': 24 * 60 * 60,
