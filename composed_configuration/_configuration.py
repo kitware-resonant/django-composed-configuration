@@ -48,9 +48,9 @@ class DevelopmentBaseConfiguration(
     DEBUG = True
     SECRET_KEY = 'insecuresecret'
 
-    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
+    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1', '0.0.0.0'])
     CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
-        [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
+        [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$', r'^https?://0\.0\.0\.0:\d+$']
     )
 
     # When in Docker, the bridge network sends requests from the host machine exclusively via a
