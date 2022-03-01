@@ -7,7 +7,7 @@ with readme_file.open() as f:
     long_description = f.read()
 
 _base_extras = [
-    'django>=3',
+    'django>=4',
     'django-allauth',
     'django-auth-style',
     'django-cors-headers',
@@ -39,7 +39,7 @@ setup(
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
-        'Framework :: Django :: 3.0',
+        'Framework :: Django :: 4.0',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
