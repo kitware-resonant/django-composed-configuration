@@ -16,7 +16,9 @@ class StaticFileMixin(ConfigMixin):
       `BASE_DIR = Path(__file__).resolve(strict=True).parent.parent`.
     """
 
-    STATIC_URL = '/static/'
+    # Django's docs suggest that STATIC_URL should be a relative path,
+    # for convenience serving a site on a subpath.
+    STATIC_URL = 'static/'
 
     # BASE_DIR is in Django's startproject template, but isn't actually used as a real setting
     @property
