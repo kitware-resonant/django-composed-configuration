@@ -95,7 +95,7 @@ class RestFrameworkMixin(ConfigMixin):
         # Allow 5 minutes for a flow to exchange an auth code for a token. This is typically
         # 60 seconds but out-of-band flows may take a bit longer. A maximum of 10 minutes is
         # recommended: https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2.
-        'AUTHORIZATION_CODE_EXPIRE_SECONDS': 300,
+        'AUTHORIZATION_CODE_EXPIRE_SECONDS': 5 * 60,
         # Django can persist logins for longer than this via cookies,
         # but non-refreshing clients will need to redirect to Django's auth every 24 hours.
         'ACCESS_TOKEN_EXPIRE_SECONDS': 24 * 60 * 60,
