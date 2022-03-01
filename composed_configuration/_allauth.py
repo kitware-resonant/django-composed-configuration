@@ -25,8 +25,8 @@ class AllauthMixin(ConfigMixin):
             auth_index, 'composed_configuration._allauth_support.apps.AllauthSupportConfig'
         )
 
-        # girder_style should come before others, to ensure its template overrides are found
-        configuration.INSTALLED_APPS.insert(0, 'girder_style')
+        # auth_style should come before others, to ensure its template overrides are found
+        configuration.INSTALLED_APPS.insert(0, 'auth_style')
 
     # The sites framework requires this to be set.
     # In the unlikely case where a database's pk sequence for the django_site table is not reset,
