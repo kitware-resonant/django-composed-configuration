@@ -1,3 +1,4 @@
+import contextlib
 from typing import Type
 import warnings
 
@@ -11,23 +12,22 @@ from configurations.base import ConfigurationBase
 values.Value.late_binding = True
 
 
-# Fix https://github.com/jazzband/django-configurations/issues/263
-# Since this attribute is set by the metaclass, it exists on the already-instantied Configuration
-# class. It also will be re-set on every subclass, but since those are not instantied yet, we
+# Fix RemovedInDjango50Warning, until upstream django-configurations removes them
+deprecated_settings = ['USE_L10N', 'USE_DEPRECATED_PYTZ']
+# Since this attribute is set by the metaclass, it exists on the already-instantiated Configuration
+# class. It also will be re-set on every subclass, but since those are not instantiated yet, we
 # can replace the metaclass for all subclasses with a fixed one.
-try:
-    del Configuration.DEFAULT_HASHING_ALGORITHM
-except AttributeError:
-    pass
+for deprecated_setting in deprecated_settings:
+    with contextlib.suppress(AttributeError):
+        delattr(Configuration, deprecated_setting)
 
 
 class FixedConfigurationBase(ConfigurationBase):
     def __new__(cls, name, bases, attrs):
         obj = super().__new__(cls, name, bases, attrs)
-        try:
-            del obj.DEFAULT_HASHING_ALGORITHM
-        except AttributeError:
-            pass
+        for deprecated_setting in deprecated_settings:
+            with contextlib.suppress(AttributeError):
+                delattr(obj, deprecated_setting)
         return obj
 
 
