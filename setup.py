@@ -9,10 +9,10 @@ with readme_file.open() as f:
 _base_extras = [
     'django>=3',
     'django-allauth',
+    'django-auth-style',
     'django-cors-headers',
     'django-extensions',
     'django-filter',
-    'django-girder-style',
     'django-girder-utils>=0.9.0',
     # django-oauth-toolkit==1.3.3 doesn't have working PKCE
     'django-oauth-toolkit>=1.4.0',
