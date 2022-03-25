@@ -41,6 +41,9 @@ class DjangoMixin(ConfigMixin):
             'django.middleware.clickjacking.XFrameOptionsMiddleware',
         ]
 
+        # Scrypt needs to be added to the beginning of the list to support older hashers
+        configuration.PASSWORD_HASHERS.insert(0, 'django.contrib.auth.hashers.ScryptPasswordHasher')
+
     SECRET_KEY = values.SecretValue()
     ALLOWED_HOSTS = values.ListValue(environ_required=True)
 
