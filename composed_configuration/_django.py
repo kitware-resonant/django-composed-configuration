@@ -70,7 +70,15 @@ class DjangoMixin(ConfigMixin):
 
     DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-    # Password validation
+    # Make scrypt the default hasher. It must be explicitly added in Django 4:
+    # https://docs.djangoproject.com/en/4.0/topics/auth/passwords/#scrypt-usage
+    PASSWORD_HASHERS = [
+        'django.contrib.auth.hashers.ScryptPasswordHasher',
+        'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+        'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+        'django.contrib.auth.hashers.Argon2PasswordHasher',
+        'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+    ]
     # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
     AUTH_PASSWORD_VALIDATORS = [
         {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
