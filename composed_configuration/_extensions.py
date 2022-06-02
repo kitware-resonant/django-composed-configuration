@@ -15,3 +15,5 @@ class ExtensionsMixin(ConfigMixin):
         configuration.INSTALLED_APPS += ['django_extensions']
 
     SHELL_PLUS_PRINT_SQL = True
+    SHELL_PLUS_PRINT_SQL_TRUNCATE = None
+    RUNSERVER_PLUS_PRINT_SQL_TRUNCATE = None
