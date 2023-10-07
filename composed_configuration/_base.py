@@ -1,9 +1,7 @@
-import contextlib
 from typing import Type
 import warnings
 
 from configurations import Configuration, values
-from configurations.base import ConfigurationBase
 
 # With the default "late_binding=False", and "environ_name" is specified or "environ=False",
 # even Values from non-included classes (e.g. `AWS_DEFAULT_REGION) get immediately evaluated and
@@ -12,26 +10,7 @@ from configurations.base import ConfigurationBase
 values.Value.late_binding = True
 
 
-# Fix RemovedInDjango50Warning, until upstream django-configurations removes them
-deprecated_settings = ['USE_L10N', 'USE_DEPRECATED_PYTZ']
-# Since this attribute is set by the metaclass, it exists on the already-instantiated Configuration
-# class. It also will be re-set on every subclass, but since those are not instantiated yet, we
-# can replace the metaclass for all subclasses with a fixed one.
-for deprecated_setting in deprecated_settings:
-    with contextlib.suppress(AttributeError):
-        delattr(Configuration, deprecated_setting)
-
-
-class FixedConfigurationBase(ConfigurationBase):
-    def __new__(cls, name, bases, attrs):
-        obj = super().__new__(cls, name, bases, attrs)
-        for deprecated_setting in deprecated_settings:
-            with contextlib.suppress(AttributeError):
-                delattr(obj, deprecated_setting)
-        return obj
-
-
-class ComposedConfiguration(Configuration, metaclass=FixedConfigurationBase):
+class ComposedConfiguration(Configuration):
     """
     Abstract base for composed Configuration.
 
