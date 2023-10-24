@@ -28,6 +28,10 @@ class AllauthMixin(ConfigMixin):
         # auth_style should come before others, to ensure its template overrides are found
         configuration.INSTALLED_APPS.insert(0, 'auth_style')
 
+        configuration.MIDDLEWARE += [
+            'allauth.account.middleware.AccountMiddleware',
+        ]
+
     # The sites framework requires this to be set.
     # In the unlikely case where a database's pk sequence for the django_site table is not reset,
     # the default site object could have a different pk. Then this will need to be overridden

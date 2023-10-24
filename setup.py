@@ -8,7 +8,8 @@ with readme_file.open() as f:
 
 _base_extras = [
     'django>=4',
-    'django-allauth',
+    # Required for "allauth.account.middleware.AccountMiddleware"
+    'django-allauth>=0.56.0',
     'django-auth-style',
     'django-cors-headers',
     'django-extensions',
