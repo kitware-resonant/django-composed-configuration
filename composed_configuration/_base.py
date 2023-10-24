@@ -53,6 +53,7 @@ class ComposedConfiguration(Configuration, metaclass=FixedConfigurationBase):
                     'In "ConfigMixin" subclasses, '
                     '"before_binding" should be renamed to "mutate_configuration"',
                     DeprecationWarning,
+                    stacklevel=1,
                 )
                 base_cls.before_binding(cls)
 
