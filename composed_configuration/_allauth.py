@@ -1,5 +1,7 @@
 from typing import Type
 
+from configurations import values
+
 from ._base import ComposedConfiguration, ConfigMixin
 
 
@@ -51,7 +53,7 @@ class AllauthMixin(ConfigMixin):
     ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 
     # Make Django and Allauth redirects consistent, but both may be overridden
-    LOGIN_REDIRECT_URL = '/'
+    LOGIN_REDIRECT_URL = values.Value(default='/')
     ACCOUNT_LOGOUT_REDIRECT_URL = '/'
 
     # Use email as the identifier for login
