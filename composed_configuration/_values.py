@@ -6,8 +6,10 @@ from configurations import values
 class DirectoryPathValue(values.PathValue):
     """A PathValue requiring that its path is a directory, optionally creating it if necessary."""
 
-    def __init__(self, *args, **kwargs):
-        self.ensure_exists: bool = kwargs.pop('ensure_exists', False)
+    ensure_exists: bool
+
+    def __init__(self, *args, ensure_exists: bool = False, **kwargs) -> None:
+        self.ensure_exists = ensure_exists
         super().__init__(*args, **kwargs)
 
     def setup(self, name: str) -> str:
