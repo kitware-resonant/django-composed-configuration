@@ -1,4 +1,4 @@
-from typing import NoReturn, Type
+from typing import NoReturn
 
 from configurations import values
 
@@ -21,7 +21,7 @@ class DjangoMixin(ConfigMixin):
     """
 
     @staticmethod
-    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         # These are often extended, so update their values to avoid fragility due to mixin ordering
         configuration.INSTALLED_APPS += [
             'django.contrib.admin',

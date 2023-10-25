@@ -1,4 +1,4 @@
-from typing import Any, Dict, Type
+from typing import Any
 
 from ._base import ComposedConfiguration, ConfigMixin
 
@@ -12,7 +12,7 @@ class RestFrameworkMixin(ConfigMixin):
     """
 
     @staticmethod
-    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
             'rest_framework',
             'rest_framework.authtoken',
@@ -106,7 +106,7 @@ class RestFrameworkMixin(ConfigMixin):
         'REFRESH_TOKEN_EXPIRE_SECONDS': 30 * 24 * 60 * 60,
     }
 
-    SWAGGER_SETTINGS: Dict[str, Any] = {
+    SWAGGER_SETTINGS: dict[str, Any] = {
         # The default security definition ("basic") is not supported by this DRF configuration,
         # so expect all logins to come via the Django session, which there's no OpenAPI
         # security definition for.
@@ -114,4 +114,4 @@ class RestFrameworkMixin(ConfigMixin):
         'USE_SESSION_AUTH': True,
     }
 
-    REDOC_SETTINGS: Dict[str, Any] = {}
+    REDOC_SETTINGS: dict[str, Any] = {}

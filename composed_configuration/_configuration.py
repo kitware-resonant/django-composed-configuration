@@ -1,5 +1,3 @@
-from typing import List, Optional, Tuple
-
 from configurations import values
 
 from ._allauth import AllauthMixin
@@ -68,7 +66,7 @@ class TestingBaseConfiguration(MinioStorageMixin, _BaseConfiguration):
     SECRET_KEY = 'testingsecret'
 
     # Testing will add 'testserver' to ALLOWED_HOSTS
-    ALLOWED_HOSTS: List[str] = []
+    ALLOWED_HOSTS: list[str] = []
 
     MINIO_STORAGE_MEDIA_BUCKET_NAME = 'test-django-storage'
 
@@ -97,7 +95,7 @@ class _HerokuMixin:
         environ_name='CLOUDAMQP_URL', environ_prefix=None, environ_required=True
     )
     # https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
-    SECURE_PROXY_SSL_HEADER: Optional[Tuple[str, str]] = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_PROXY_SSL_HEADER: tuple[str, str] | None = ('HTTP_X_FORWARDED_PROTO', 'https')
     # This may be provided by https://github.com/ianpurvis/heroku-buildpack-version or similar
     # The commit SHA is the preferred release tag for Git-based projects:
     # https://docs.sentry.io/platforms/python/configuration/releases/#bind-the-version

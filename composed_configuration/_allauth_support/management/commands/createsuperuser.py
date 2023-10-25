@@ -1,4 +1,4 @@
-from typing import Type, cast
+from typing import cast
 
 from allauth.account import app_settings as allauth_settings
 from django.contrib.auth import get_user_model
@@ -20,13 +20,13 @@ management command to only prompt for an email address.
 # If using email as username
 if not allauth_settings.USERNAME_REQUIRED:
     # Expose the modified command
-    Command: Type[BaseCommand] = allauth_support_createsuperuser.Command
-    user_model: Type[AbstractUser] = allauth_support_createsuperuser.EmailAsUsernameProxyUser
+    Command: type[BaseCommand] = allauth_support_createsuperuser.Command
+    user_model: type[AbstractUser] = allauth_support_createsuperuser.EmailAsUsernameProxyUser
 
 else:
     # Expose the pristine upstream version of the command
     Command = django_createsuperuser.Command
-    user_model = cast(Type[AbstractUser], get_user_model())
+    user_model = cast(type[AbstractUser], get_user_model())
 
 # Always automatically verify email addresses of newly created superusers
 post_save.connect(verify_email_address_on_user_post_save, sender=user_model)

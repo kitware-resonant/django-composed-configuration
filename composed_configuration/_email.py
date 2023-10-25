@@ -1,4 +1,4 @@
-from typing import Dict, Type, cast
+from typing import cast
 
 from configurations import values
 
@@ -23,9 +23,9 @@ class SmtpEmailMixin(_EmailMixin):
     """
 
     @staticmethod
-    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         email = cast(
-            Dict[str, str],
+            dict[str, str],
             values.EmailURLValue(
                 environ_name='EMAIL_URL',
                 environ_prefix='DJANGO',

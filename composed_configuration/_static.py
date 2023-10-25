@@ -1,5 +1,4 @@
 from pathlib import Path
-from typing import Type
 
 from ._base import ComposedConfiguration, ConfigMixin
 from ._values import DirectoryPathValue
@@ -41,7 +40,7 @@ class StaticFileMixin(ConfigMixin):
         )
 
     @staticmethod
-    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += ['django.contrib.staticfiles']
 
 
@@ -53,7 +52,7 @@ class WhitenoiseStaticFileMixin(StaticFileMixin):
     """
 
     @staticmethod
-    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         # Insert immediately before staticfiles app
         staticfiles_index = configuration.INSTALLED_APPS.index('django.contrib.staticfiles')
         configuration.INSTALLED_APPS.insert(staticfiles_index, 'whitenoise.runserver_nostatic')

@@ -1,5 +1,4 @@
 import logging
-from typing import Optional
 
 from django.http import HttpRequest
 
@@ -8,7 +7,7 @@ from ._base import ConfigMixin
 
 def _filter_favicon_requests(record: logging.LogRecord) -> bool:
     if record.name == 'django.request':
-        request: Optional[HttpRequest] = getattr(record, 'request', None)
+        request: HttpRequest | None = getattr(record, 'request', None)
         if request and request.path == '/favicon.ico':
             return False
 
