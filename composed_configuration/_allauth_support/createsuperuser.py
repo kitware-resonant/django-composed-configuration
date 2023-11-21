@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import ClassVar, List, Optional
+from typing import ClassVar
 
 from django.contrib.auth.management.commands import createsuperuser
 from django.contrib.auth.models import User, UserManager
@@ -30,9 +30,9 @@ class EmailAsUsernameProxyUserManager(UserManager):
     # This version of "create_superuser" makes the "username" argument optional
     def create_superuser(
         self,
-        username: Optional[str] = None,
-        email: Optional[str] = None,
-        password: Optional[str] = None,
+        username: str | None = None,
+        email: str | None = None,
+        password: str | None = None,
         **extra_fields,
     ) -> EmailAsUsernameProxyUser:
         # Practically, email will always be provided
@@ -55,7 +55,7 @@ class EmailAsUsernameProxyUser(User):
 
     # Don't include "email" in "REQUIRED_FIELDS", to prevent adding that field twice to the
     # "createsuperuser.Command" argument parser
-    REQUIRED_FIELDS: ClassVar[List[str]] = []
+    REQUIRED_FIELDS: ClassVar[list[str]] = []
 
     @classmethod
     def normalize_username(cls, username: str) -> str:

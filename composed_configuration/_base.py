@@ -1,5 +1,4 @@
 import contextlib
-from typing import Type
 import warnings
 
 from configurations import Configuration, values
@@ -62,7 +61,7 @@ class ConfigMixin:
     """Abstract mixin for composable Config sections."""
 
     @staticmethod
-    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         """
         Mutate the configuration before values are fully bound with environment variables.
 

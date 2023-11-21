@@ -1,5 +1,3 @@
-from typing import Type
-
 from configurations import values
 
 from ._base import ComposedConfiguration, ConfigMixin
@@ -18,7 +16,7 @@ class SentryMixin(ConfigMixin):
     """
 
     @staticmethod
-    def mutate_configuration(configuration: Type[ComposedConfiguration]) -> None:
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
             'composed_configuration.sentry.apps.SentryConfig',
         ]

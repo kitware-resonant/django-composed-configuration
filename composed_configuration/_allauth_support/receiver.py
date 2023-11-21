@@ -1,5 +1,4 @@
 import logging
-from typing import Type
 
 from allauth.account.models import EmailAddress
 from django.contrib.auth.models import AbstractUser
@@ -8,7 +7,7 @@ logger = logging.getLogger(__file__)
 
 
 def verify_email_address_on_user_post_save(
-    sender: Type[AbstractUser],
+    sender: type[AbstractUser],
     instance: AbstractUser,
     created: bool,
     **kwargs,

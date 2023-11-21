@@ -1,5 +1,3 @@
-from typing import Optional, Tuple
-
 from ._base import ConfigMixin
 
 
@@ -9,7 +7,7 @@ class HttpsMixin(ConfigMixin):
     SECURE_SSL_REDIRECT = True
 
     # This must be set when deployed behind a proxy
-    SECURE_PROXY_SSL_HEADER: Optional[Tuple[str, str]] = None
+    SECURE_PROXY_SSL_HEADER: tuple[str, str] | None = None
 
     SESSION_COOKIE_SECURE = True
     CSRF_COOKIE_SECURE = True

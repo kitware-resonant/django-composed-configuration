@@ -21,7 +21,7 @@ def _is_docker() -> bool:
     return False
 
 
-class _AlwaysContains(object):
+class _AlwaysContains:
     """An object which always returns True for `x in _AlwaysContains()` operations."""
 
     def __contains__(self, item) -> bool:
