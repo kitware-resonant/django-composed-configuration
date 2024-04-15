@@ -7,7 +7,7 @@ with readme_file.open() as f:
     long_description = f.read()
 
 _base_extras = [
-    'django>=4',
+    'django>=4.2',
     # Required for "allauth.account.middleware.AccountMiddleware"
     'django-allauth>=0.56.0',
     'django-auth-style',
@@ -41,8 +41,7 @@ setup(
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Framework :: Django :: 4',
-        'Framework :: Django :: 4.0',
-        'Framework :: Django :: 4.1',
+        'Framework :: Django :: 4.2',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
