@@ -1,6 +1,6 @@
 from configurations import values
 
-from ._base import ConfigMixin
+from ._base import ComposedConfiguration, ConfigMixin
 
 
 class _StorageMixin(ConfigMixin):
@@ -23,7 +23,16 @@ class MinioStorageMixin(_StorageMixin):
     This requires the `django-minio-storage` package to be installed.
     """
 
-    DEFAULT_FILE_STORAGE = 'minio_storage.storage.MinioMediaStorage'
+    @staticmethod
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
+        configuration.STORAGES.update(
+            {
+                'default': {
+                    'BACKEND': 'minio_storage.storage.MinioMediaStorage',
+                }
+            }
+        )
+
     MINIO_STORAGE_ENDPOINT = values.Value('localhost:9000')
     MINIO_STORAGE_USE_HTTPS = values.BooleanValue(False)
     MINIO_STORAGE_ACCESS_KEY = values.SecretValue()
@@ -49,7 +58,15 @@ class S3StorageMixin(_StorageMixin):
     This requires the `django-storages[boto3]` package to be installed.
     """
 
-    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+    @staticmethod
+    def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
+        configuration.STORAGES.update(
+            {
+                'default': {
+                    'BACKEND': 'storages.backends.s3boto3.S3Boto3Storage',
+                }
+            }
+        )
 
     # This exact environ_name is important, as direct use of Boto will also use it
     AWS_S3_REGION_NAME = values.Value(

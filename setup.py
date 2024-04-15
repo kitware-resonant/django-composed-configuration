@@ -7,7 +7,7 @@ with readme_file.open() as f:
     long_description = f.read()
 
 _base_extras = [
-    'django>=4',
+    'django>=4.2',
     # Required for "allauth.account.middleware.AccountMiddleware"
     'django-allauth>=0.56.0',
     'django-auth-style',
@@ -18,7 +18,7 @@ _base_extras = [
     # django-oauth-toolkit==1.3.3 doesn't have working PKCE
     'django-oauth-toolkit>=1.4.0',
     'drf-yasg',
-    'psycopg2',
+    'psycopg',
     'rich',
     'whitenoise[brotli]',
 ]
@@ -41,8 +41,7 @@ setup(
         'Development Status :: 3 - Alpha',
         'Environment :: Web Environment',
         'Framework :: Django :: 4',
-        'Framework :: Django :: 4.0',
-        'Framework :: Django :: 4.1',
+        'Framework :: Django :: 4.2',
         'Framework :: Django',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: Apache Software License',
@@ -59,11 +58,17 @@ setup(
     ],
     extras_require={
         # Required for DevelopmentBaseConfiguration / TestingBaseConfiguration
-        'dev': _base_extras + ['django-debug-toolbar', 'django-minio-storage'],
+        'dev': _base_extras
+        + [
+            'django-debug-toolbar',
+            'django-minio-storage',
+            'psycopg[binary]',
+        ],
         # Required for ProductionBaseConfiguration
         'prod': _base_extras
         + [
             'django-storages[boto3]',
+            'psycopg[c]',
             'sentry-sdk',
         ],
     },
