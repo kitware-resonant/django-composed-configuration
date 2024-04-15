@@ -10,7 +10,7 @@ class DatabaseMixin(ConfigMixin):
     The `DJANGO_DATABASE_URL` environment variable must be externally set
     to a PostgreSQL URL including credentials and the database name.
 
-    This requires the `psycopg2` package to be installed.
+    This requires the `psycopg` package to be installed.
     """
 
     @staticmethod
