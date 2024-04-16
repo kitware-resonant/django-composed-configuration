@@ -53,7 +53,7 @@ dynamic = ["version"]
 
 [project.urls]
 Repository = "https://github.com/kitware-resonant/django-composed-configuration"
-"Bug Reports" = "`https://github.com/kitware-resonant`/django-composed-configuration/issues"
+"Bug Reports" = "https://github.com/kitware-resonant/django-composed-configuration/issues"
 
 [project.optional-dependencies]
 dev = [
