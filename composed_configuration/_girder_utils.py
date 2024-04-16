@@ -10,4 +10,4 @@ class GirderUtilsMixin(ConfigMixin):
 
     @staticmethod
     def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
-        configuration.INSTALLED_APPS += ['girder_utils']
+        configuration.INSTALLED_APPS += ["girder_utils"]

@@ -27,8 +27,8 @@ class SmtpEmailMixin(_EmailMixin):
         email = cast(
             dict[str, str],
             values.EmailURLValue(
-                environ_name='EMAIL_URL',
-                environ_prefix='DJANGO',
+                environ_name="EMAIL_URL",
+                environ_prefix="DJANGO",
                 environ_required=True,
                 # Disable late_binding, to make this return a usable value (which is a simple dict)
                 # immediately
@@ -40,8 +40,8 @@ class SmtpEmailMixin(_EmailMixin):
 
     # Set both settings from DJANGO_DEFAULT_FROM_EMAIL
     DEFAULT_FROM_EMAIL = values.EmailValue(environ_required=True)
-    SERVER_EMAIL = values.EmailValue(environ_name='DEFAULT_FROM_EMAIL', environ_required=True)
+    SERVER_EMAIL = values.EmailValue(environ_name="DEFAULT_FROM_EMAIL", environ_required=True)
 
 
 class ConsoleEmailMixin(_EmailMixin):
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"

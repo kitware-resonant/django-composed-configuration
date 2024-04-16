@@ -10,7 +10,7 @@ class ExtensionsMixin(ConfigMixin):
 
     @staticmethod
     def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
-        configuration.INSTALLED_APPS += ['django_extensions']
+        configuration.INSTALLED_APPS += ["django_extensions"]
 
     SHELL_PLUS_PRINT_SQL = True
     SHELL_PLUS_PRINT_SQL_TRUNCATE = None

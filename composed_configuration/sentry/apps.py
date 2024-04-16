@@ -9,8 +9,8 @@ from sentry_sdk.integrations.logging import LoggingIntegration
 
 
 class SentryConfig(AppConfig):
-    name = 'composed_configuration.sentry'
-    verbose_name = 'Composed configuration Sentry support'
+    name = "composed_configuration.sentry"
+    verbose_name = "Composed configuration Sentry support"
 
     def ready(self):
         sentry_sdk.init(

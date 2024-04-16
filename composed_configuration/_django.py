@@ -24,21 +24,21 @@ class DjangoMixin(ConfigMixin):
     def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         # These are often extended, so update their values to avoid fragility due to mixin ordering
         configuration.INSTALLED_APPS += [
-            'django.contrib.admin',
-            'django.contrib.auth',
-            'django.contrib.contenttypes',
-            'django.contrib.sessions',
-            'django.contrib.messages',
-            'django.contrib.humanize',
+            "django.contrib.admin",
+            "django.contrib.auth",
+            "django.contrib.contenttypes",
+            "django.contrib.sessions",
+            "django.contrib.messages",
+            "django.contrib.humanize",
         ]
         configuration.MIDDLEWARE += [
-            'django.middleware.security.SecurityMiddleware',
-            'django.contrib.sessions.middleware.SessionMiddleware',
-            'django.middleware.common.CommonMiddleware',
-            'django.middleware.csrf.CsrfViewMiddleware',
-            'django.contrib.auth.middleware.AuthenticationMiddleware',
-            'django.contrib.messages.middleware.MessageMiddleware',
-            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+            "django.middleware.security.SecurityMiddleware",
+            "django.contrib.sessions.middleware.SessionMiddleware",
+            "django.middleware.common.CommonMiddleware",
+            "django.middleware.csrf.CsrfViewMiddleware",
+            "django.contrib.auth.middleware.AuthenticationMiddleware",
+            "django.contrib.messages.middleware.MessageMiddleware",
+            "django.middleware.clickjacking.XFrameOptionsMiddleware",
         ]
 
     SECRET_KEY = values.SecretValue()
@@ -46,50 +46,50 @@ class DjangoMixin(ConfigMixin):
 
     @property
     def WSGI_APPLICATION(self) -> NoReturn:  # noqa: N802
-        raise Exception('WSGI_APPLICATION must be explicitly set.')
+        raise Exception("WSGI_APPLICATION must be explicitly set.")
 
     @property
     def ROOT_URLCONF(self) -> NoReturn:  # noqa: N802
-        raise Exception('ROOT_URLCONF must be explicitly set.')
+        raise Exception("ROOT_URLCONF must be explicitly set.")
 
     TEMPLATES = [
         {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            'DIRS': [],
-            'APP_DIRS': True,
-            'OPTIONS': {
-                'context_processors': [
-                    'django.template.context_processors.debug',
-                    'django.template.context_processors.request',
-                    'django.contrib.auth.context_processors.auth',
-                    'django.contrib.messages.context_processors.messages',
+            "BACKEND": "django.template.backends.django.DjangoTemplates",
+            "DIRS": [],
+            "APP_DIRS": True,
+            "OPTIONS": {
+                "context_processors": [
+                    "django.template.context_processors.debug",
+                    "django.template.context_processors.request",
+                    "django.contrib.auth.context_processors.auth",
+                    "django.contrib.messages.context_processors.messages",
                 ],
             },
         },
     ]
 
-    DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+    DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
     # Make scrypt the default hasher. It must be explicitly added in Django 4:
     # https://docs.djangoproject.com/en/4.0/topics/auth/passwords/#scrypt-usage
     PASSWORD_HASHERS = [
-        'django.contrib.auth.hashers.ScryptPasswordHasher',
-        'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-        'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-        'django.contrib.auth.hashers.Argon2PasswordHasher',
-        'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+        "django.contrib.auth.hashers.ScryptPasswordHasher",
+        "django.contrib.auth.hashers.PBKDF2PasswordHasher",
+        "django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher",
+        "django.contrib.auth.hashers.Argon2PasswordHasher",
+        "django.contrib.auth.hashers.BCryptSHA256PasswordHasher",
     ]
     # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
     AUTH_PASSWORD_VALIDATORS = [
-        {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
-        {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
-        {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
-        {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
+        {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+        {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
+        {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
+        {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
     ]
 
     # Internationalization
     # https://docs.djangoproject.com/en/3.0/topics/i18n/
-    LANGUAGE_CODE = 'en-us'
+    LANGUAGE_CODE = "en-us"
     USE_TZ = True
-    TIME_ZONE = 'UTC'
+    TIME_ZONE = "UTC"
     USE_I18N = True

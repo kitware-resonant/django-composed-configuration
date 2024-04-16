@@ -44,11 +44,11 @@ class DevelopmentBaseConfiguration(
     DebugMixin, ConsoleEmailMixin, MinioStorageMixin, _BaseConfiguration
 ):
     DEBUG = True
-    SECRET_KEY = 'insecuresecret'
+    SECRET_KEY = "insecuresecret"
 
-    ALLOWED_HOSTS = values.ListValue(['localhost', '127.0.0.1'])
+    ALLOWED_HOSTS = values.ListValue(["localhost", "127.0.0.1"])
     CORS_ORIGIN_REGEX_WHITELIST = values.ListValue(
-        [r'^https?://localhost:\d+$', r'^https?://127\.0\.0\.1:\d+$']
+        [r"^https?://localhost:\d+$", r"^https?://127\.0\.0\.1:\d+$"]
     )
 
     # When in Docker, the bridge network sends requests from the host machine exclusively via a
@@ -56,19 +56,19 @@ class DevelopmentBaseConfiguration(
     # consider any IP address (though actually this will only be the single dedicated address) to
     # be internal. This relies on the host to set up appropriate firewalls for Docker, to prevent
     # access from non-internal addresses.
-    INTERNAL_IPS = _AlwaysContains() if _is_docker() else ['127.0.0.1']
+    INTERNAL_IPS = _AlwaysContains() if _is_docker() else ["127.0.0.1"]
     # Setting this allows MinIO to work through network namespace partitions
     # (e.g. when running within Docker Compose)
     MINIO_STORAGE_MEDIA_URL = values.Value(None)
 
 
 class TestingBaseConfiguration(MinioStorageMixin, _BaseConfiguration):
-    SECRET_KEY = 'testingsecret'
+    SECRET_KEY = "testingsecret"
 
     # Testing will add 'testserver' to ALLOWED_HOSTS
     ALLOWED_HOSTS: list[str] = []
 
-    MINIO_STORAGE_MEDIA_BUCKET_NAME = 'test-django-storage'
+    MINIO_STORAGE_MEDIA_BUCKET_NAME = "test-django-storage"
 
     # Testing will set EMAIL_BACKEND to use the memory backend
 
@@ -84,24 +84,24 @@ class ProductionBaseConfiguration(
 class _HerokuMixin:
     # Use different env var names (with no DJANGO_ prefix) for services that Heroku auto-injects
     DATABASES = values.DatabaseURLValue(
-        environ_name='DATABASE_URL',
+        environ_name="DATABASE_URL",
         environ_prefix=None,
         environ_required=True,
-        engine='django.db.backends.postgresql',
+        engine="django.db.backends.postgresql",
         conn_max_age=600,
         ssl_require=True,
     )
     CELERY_BROKER_URL = values.Value(
-        environ_name='CLOUDAMQP_URL', environ_prefix=None, environ_required=True
+        environ_name="CLOUDAMQP_URL", environ_prefix=None, environ_required=True
     )
     # https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
-    SECURE_PROXY_SSL_HEADER: tuple[str, str] | None = ('HTTP_X_FORWARDED_PROTO', 'https')
+    SECURE_PROXY_SSL_HEADER: tuple[str, str] | None = ("HTTP_X_FORWARDED_PROTO", "https")
     # This may be provided by https://github.com/ianpurvis/heroku-buildpack-version or similar
     # The commit SHA is the preferred release tag for Git-based projects:
     # https://docs.sentry.io/platforms/python/configuration/releases/#bind-the-version
     SENTRY_RELEASE = values.Value(
         None,
-        environ_name='SOURCE_VERSION',
+        environ_name="SOURCE_VERSION",
         environ_prefix=None,
     )
 

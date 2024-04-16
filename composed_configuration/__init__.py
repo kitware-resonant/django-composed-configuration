@@ -25,35 +25,35 @@ from ._static import StaticFileMixin, WhitenoiseStaticFileMixin
 from ._storage import MinioStorageMixin, S3StorageMixin
 
 __all__ = [
-    'AllauthMixin',
-    'CeleryMixin',
-    'ComposedConfiguration',
-    'ConfigMixin',
-    'ConsoleEmailMixin',
-    'CorsMixin',
-    'DatabaseMixin',
-    'DebugMixin',
-    'DevelopmentBaseConfiguration',
-    'DjangoMixin',
-    'ExtensionsMixin',
-    'FilterMixin',
-    'GirderUtilsMixin',
-    'HerokuProductionBaseConfiguration',
-    'HttpsMixin',
-    'LoggingMixin',
-    'MinioStorageMixin',
-    'ProductionBaseConfiguration',
-    'RestFrameworkMixin',
-    'S3StorageMixin',
-    'SentryMixin',
-    'SmtpEmailMixin',
-    'StaticFileMixin',
-    'TestingBaseConfiguration',
-    'WhitenoiseStaticFileMixin',
+    "AllauthMixin",
+    "CeleryMixin",
+    "ComposedConfiguration",
+    "ConfigMixin",
+    "ConsoleEmailMixin",
+    "CorsMixin",
+    "DatabaseMixin",
+    "DebugMixin",
+    "DevelopmentBaseConfiguration",
+    "DjangoMixin",
+    "ExtensionsMixin",
+    "FilterMixin",
+    "GirderUtilsMixin",
+    "HerokuProductionBaseConfiguration",
+    "HttpsMixin",
+    "LoggingMixin",
+    "MinioStorageMixin",
+    "ProductionBaseConfiguration",
+    "RestFrameworkMixin",
+    "S3StorageMixin",
+    "SentryMixin",
+    "SmtpEmailMixin",
+    "StaticFileMixin",
+    "TestingBaseConfiguration",
+    "WhitenoiseStaticFileMixin",
 ]
 
 try:
-    __version__ = version('django-composed-configuration')
+    __version__ = version("django-composed-configuration")
 except PackageNotFoundError:
     # package is not installed
     pass

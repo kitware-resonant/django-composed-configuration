@@ -51,7 +51,7 @@ class EmailAsUsernameProxyUser(User):
 
     # "createsuperuser.Command" automatically includes the referent of "USERNAME_FIELD", and we want
     # to apply username labeling, help text, and validation rules from the actual "email" field
-    USERNAME_FIELD = 'email'
+    USERNAME_FIELD = "email"
 
     # Don't include "email" in "REQUIRED_FIELDS", to prevent adding that field twice to the
     # "createsuperuser.Command" argument parser

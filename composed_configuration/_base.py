@@ -12,7 +12,7 @@ values.Value.late_binding = True
 
 
 # Fix RemovedInDjango50Warning, until upstream django-configurations removes them
-deprecated_settings = ['USE_L10N', 'USE_DEPRECATED_PYTZ']
+deprecated_settings = ["USE_L10N", "USE_DEPRECATED_PYTZ"]
 # Since this attribute is set by the metaclass, it exists on the already-instantiated Configuration
 # class. It also will be re-set on every subclass, but since those are not instantiated yet, we
 # can replace the metaclass for all subclasses with a fixed one.
@@ -45,9 +45,9 @@ class ComposedConfiguration(Configuration, metaclass=FixedConfigurationBase):
         # Reverse order allows more base classes to run first
         for base_cls in reversed(cls.__mro__):
             # If the class has "mutate_configuration" as its own (non-inherited) method
-            if 'mutate_configuration' in base_cls.__dict__:
+            if "mutate_configuration" in base_cls.__dict__:
                 base_cls.mutate_configuration(cls)
-            elif 'before_binding' in base_cls.__dict__:
+            elif "before_binding" in base_cls.__dict__:
                 warnings.warn(
                     'In "ConfigMixin" subclasses, '
                     '"before_binding" should be renamed to "mutate_configuration"',

@@ -14,26 +14,26 @@ class RestFrameworkMixin(ConfigMixin):
     @staticmethod
     def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         configuration.INSTALLED_APPS += [
-            'rest_framework',
-            'rest_framework.authtoken',
-            'oauth2_provider',
-            'drf_yasg',
+            "rest_framework",
+            "rest_framework.authtoken",
+            "oauth2_provider",
+            "drf_yasg",
         ]
 
         if configuration.DEBUG:
-            configuration.OAUTH2_PROVIDER['ALLOWED_REDIRECT_URI_SCHEMES'] = ['http', 'https']
+            configuration.OAUTH2_PROVIDER["ALLOWED_REDIRECT_URI_SCHEMES"] = ["http", "https"]
             # In development, always present the approval dialog
-            configuration.OAUTH2_PROVIDER['REQUEST_APPROVAL_PROMPT'] = 'force'
+            configuration.OAUTH2_PROVIDER["REQUEST_APPROVAL_PROMPT"] = "force"
 
     # When SessionAuthentication is allowed, it's critical that the following settings
     # (respectively part of Django and django-cors-headers) are set to these values (although those
     # are the also the default values).
-    SESSION_COOKIE_SAMESITE = 'Lax'
+    SESSION_COOKIE_SAMESITE = "Lax"
     CORS_ALLOW_CREDENTIALS = False
 
     REST_FRAMEWORK = {
-        'DEFAULT_AUTHENTICATION_CLASSES': [
-            'oauth2_provider.contrib.rest_framework.OAuth2Authentication',
+        "DEFAULT_AUTHENTICATION_CLASSES": [
+            "oauth2_provider.contrib.rest_framework.OAuth2Authentication",
             # Allow SessionAuthentication, as this is much more convenient for Ajax requests
             # from server-rendered pages, including:
             # * YASG (Swagger / ReDoc)
@@ -69,49 +69,49 @@ class RestFrameworkMixin(ConfigMixin):
             # may lead developers to incorrect fixes.
             # TL;DR: Developers of SPAs may encounter misleading error messages when making Ajax
             # requests "withCredentials", but security is still maintained.
-            'rest_framework.authentication.SessionAuthentication',
+            "rest_framework.authentication.SessionAuthentication",
         ],
         # This is a much more sensible degree of basic security
-        'DEFAULT_PERMISSION_CLASSES': ['rest_framework.permissions.IsAuthenticatedOrReadOnly'],
+        "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticatedOrReadOnly"],
         # BoundedLimitOffsetPagination provides LimitOffsetPagination with a maximum page size
-        'DEFAULT_PAGINATION_CLASS': 'girder_utils.rest_framework.BoundedLimitOffsetPagination',
+        "DEFAULT_PAGINATION_CLASS": "girder_utils.rest_framework.BoundedLimitOffsetPagination",
         # This provides a sane default for requests that do not specify a page size.
         # This also ensures that endpoints with pagination will always return a
         # pagination-structured response.
-        'PAGE_SIZE': 100,
+        "PAGE_SIZE": 100,
         # Real clients typically JSON-encode their request bodies, so the test client should too
-        'TEST_REQUEST_DEFAULT_FORMAT': 'json',
+        "TEST_REQUEST_DEFAULT_FORMAT": "json",
     }
 
     OAUTH2_PROVIDER = {
-        'PKCE_REQUIRED': True,
-        'ALLOWED_REDIRECT_URI_SCHEMES': ['https'],
+        "PKCE_REQUIRED": True,
+        "ALLOWED_REDIRECT_URI_SCHEMES": ["https"],
         # Don't require users to re-approve scopes each time
-        'REQUEST_APPROVAL_PROMPT': 'auto',
+        "REQUEST_APPROVAL_PROMPT": "auto",
         # ERROR_RESPONSE_WITH_SCOPES is only used with the "permission_classes" helpers for scopes.
         # If the scope itself is confidential, this could leak information. but the usability
         # benefit is probably worth it.
-        'ERROR_RESPONSE_WITH_SCOPES': True,
+        "ERROR_RESPONSE_WITH_SCOPES": True,
         # Allow 5 minutes for a flow to exchange an auth code for a token. This is typically
         # 60 seconds but out-of-band flows may take a bit longer. A maximum of 10 minutes is
         # recommended: https://datatracker.ietf.org/doc/html/rfc6749#section-4.1.2.
-        'AUTHORIZATION_CODE_EXPIRE_SECONDS': 5 * 60,
+        "AUTHORIZATION_CODE_EXPIRE_SECONDS": 5 * 60,
         # Django can persist logins for longer than this via cookies,
         # but non-refreshing clients will need to redirect to Django's auth every 24 hours.
-        'ACCESS_TOKEN_EXPIRE_SECONDS': 24 * 60 * 60,
+        "ACCESS_TOKEN_EXPIRE_SECONDS": 24 * 60 * 60,
         # This allows refresh tokens to eventually be removed from the database by
         # "manage.py cleartokens". This value is not actually enforced when refresh tokens are
         # checked, but it can be assumed that all clients will need to redirect to Django's auth
         # every 30 days.
-        'REFRESH_TOKEN_EXPIRE_SECONDS': 30 * 24 * 60 * 60,
+        "REFRESH_TOKEN_EXPIRE_SECONDS": 30 * 24 * 60 * 60,
     }
 
     SWAGGER_SETTINGS: dict[str, Any] = {
         # The default security definition ("basic") is not supported by this DRF configuration,
         # so expect all logins to come via the Django session, which there's no OpenAPI
         # security definition for.
-        'SECURITY_DEFINITIONS': None,
-        'USE_SESSION_AUTH': True,
+        "SECURITY_DEFINITIONS": None,
+        "USE_SESSION_AUTH": True,
     }
 
     REDOC_SETTINGS: dict[str, Any] = {}
