@@ -33,7 +33,7 @@ classifiers = [
   "Programming Language :: Python",
 ]
 dependencies = [
-  "django>=4.2",
+  "django[argon2]>=4.2",
   # Required for "allauth.account.middleware.AccountMiddleware"
   "django-allauth>=0.56.0",
   "django-auth-style",
