@@ -11,7 +11,7 @@ license = { text = "Apache 2.0" }
 maintainers = [{ name = "Kitware, Inc.", email = "kitware@kitware.com" }]
 keywords = [
   "django",
-  "girder",
+  "resonant",
   "configuration",
   "configurations",
   "setting",
@@ -52,8 +52,8 @@ dependencies = [
 dynamic = ["version"]
 
 [project.urls]
-Repository = "https://github.com/girder/django-composed-configuration"
-"Bug Reports" = "https://github.com/girder/django-composed-configuration/issues"
+Repository = "https://github.com/kitware-resonant/django-composed-configuration"
+"Bug Reports" = "`https://github.com/kitware-resonant`/django-composed-configuration/issues"
 
 [project.optional-dependencies]
 dev = [
