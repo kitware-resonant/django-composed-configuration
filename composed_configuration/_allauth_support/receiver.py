@@ -27,10 +27,10 @@ def verify_email_address_on_user_post_save(
         email_address, created = EmailAddress.objects.get_or_create(
             email__iexact=instance.email,
             defaults={
-                'user': instance,
-                'email': instance.email,
-                'verified': True,
-                'primary': True,
+                "user": instance,
+                "email": instance.email,
+                "verified": True,
+                "primary": True,
             },
         )
         if not created:

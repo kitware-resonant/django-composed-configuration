@@ -18,7 +18,7 @@ class CeleryMixin(ConfigMixin):
     """
 
     # Assume AMQP.
-    CELERY_BROKER_URL = values.Value('amqp://localhost:5672/')
+    CELERY_BROKER_URL = values.Value("amqp://localhost:5672/")
 
     # Disable results backend, as this feature has too many weaknesses.
     # The database should be used to communicate results of completed tasks.

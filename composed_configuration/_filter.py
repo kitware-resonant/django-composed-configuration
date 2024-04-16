@@ -10,4 +10,4 @@ class FilterMixin(ConfigMixin):
 
     @staticmethod
     def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
-        configuration.INSTALLED_APPS += ['django_filters']
+        configuration.INSTALLED_APPS += ["django_filters"]

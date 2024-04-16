@@ -17,18 +17,18 @@ class StaticFileMixin(ConfigMixin):
 
     # Django's docs suggest that STATIC_URL should be a relative path,
     # for convenience serving a site on a subpath.
-    STATIC_URL = 'static/'
+    STATIC_URL = "static/"
 
     # BASE_DIR is in Django's startproject template, but isn't actually used as a real setting
     @property
     def BASE_DIR(self) -> Path:  # noqa: N802
-        raise Exception('BASE_DIR must be explicitly set to the path of the Django project root.')
+        raise Exception("BASE_DIR must be explicitly set to the path of the Django project root.")
 
     @property
     def STATIC_ROOT(self):  # noqa: N802
         # TODO: allow from env?
         return DirectoryPathValue(
-            str(Path(self.BASE_DIR) / 'staticfiles'),
+            str(Path(self.BASE_DIR) / "staticfiles"),
             environ=False,
             check_exists=False,
             # Django staticfiles creates any intermediate directories which don't exist, but do
@@ -41,7 +41,7 @@ class StaticFileMixin(ConfigMixin):
 
     @staticmethod
     def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
-        configuration.INSTALLED_APPS += ['django.contrib.staticfiles']
+        configuration.INSTALLED_APPS += ["django.contrib.staticfiles"]
 
 
 class WhitenoiseStaticFileMixin(StaticFileMixin):
@@ -54,29 +54,29 @@ class WhitenoiseStaticFileMixin(StaticFileMixin):
     @staticmethod
     def mutate_configuration(configuration: type[ComposedConfiguration]) -> None:
         # Insert immediately before staticfiles app
-        staticfiles_index = configuration.INSTALLED_APPS.index('django.contrib.staticfiles')
-        configuration.INSTALLED_APPS.insert(staticfiles_index, 'whitenoise.runserver_nostatic')
+        staticfiles_index = configuration.INSTALLED_APPS.index("django.contrib.staticfiles")
+        configuration.INSTALLED_APPS.insert(staticfiles_index, "whitenoise.runserver_nostatic")
 
         # Insert immediately after SecurityMiddleware
         try:
             security_index = configuration.MIDDLEWARE.index(
-                'django.middleware.security.SecurityMiddleware'
+                "django.middleware.security.SecurityMiddleware"
             )
         except ValueError:
             raise Exception(
-                'WhitenoiseStaticFileMixin must be loaded after '
-                'the SecurityMiddleware is added to MIDDLEWARE.'
+                "WhitenoiseStaticFileMixin must be loaded after "
+                "the SecurityMiddleware is added to MIDDLEWARE."
             )
         configuration.MIDDLEWARE.insert(
-            security_index + 1, 'whitenoise.middleware.WhiteNoiseMiddleware'
+            security_index + 1, "whitenoise.middleware.WhiteNoiseMiddleware"
         )
 
         configuration.STORAGES.update(
             {
-                'staticfiles': {
+                "staticfiles": {
                     # CompressedManifestStaticFilesStorage does not work properly with drf-
                     # https://github.com/axnsan12/drf-yasg/issues/761
-                    'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
+                    "BACKEND": "whitenoise.storage.CompressedStaticFilesStorage",
                 }
             }
         )

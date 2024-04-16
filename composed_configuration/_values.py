@@ -15,7 +15,7 @@ class DirectoryPathValue(values.PathValue):
     def setup(self, name: str) -> str:
         value = super().setup(name)
         if os.path.exists(value) and not os.path.isdir(value):
-            raise ValueError(f'Path {repr(value)} is not a directory.')
+            raise ValueError(f"Path {repr(value)} is not a directory.")
         if self.ensure_exists:
             os.makedirs(value, exist_ok=True)
         return value
