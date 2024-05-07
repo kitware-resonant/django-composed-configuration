@@ -48,6 +48,10 @@ class AllauthMixin(ConfigMixin):
     # Require email verification, but this can be overridden
     ACCOUNT_EMAIL_VERIFICATION = "mandatory"
 
+    # We override the login form to exclude the default forgot password link, because
+    # auth_style provides its own custom one.
+    ACCOUNT_FORMS = {"login": "composed_configuration._allauth_support.forms.LoginOverrideForm"}
+
     # Make Django and Allauth redirects consistent, but both may be overridden
     LOGIN_REDIRECT_URL = "/"
     ACCOUNT_LOGOUT_REDIRECT_URL = "/"
