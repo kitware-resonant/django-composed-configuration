@@ -57,6 +57,7 @@ Repository = "https://github.com/kitware-resonant/django-composed-configuration"
 
 [project.optional-dependencies]
 dev = [
+  "django-browser-reload",
   "django-debug-toolbar",
   "django-minio-storage",
   "psycopg[binary]",
