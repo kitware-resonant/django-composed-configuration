@@ -61,6 +61,8 @@ class DevelopmentBaseConfiguration(
     # (e.g. when running within Docker Compose)
     MINIO_STORAGE_MEDIA_URL = values.Value(None)
 
+    SHELL_PLUS_PRINT_SQL_TRUNCATE = None
+
 
 class TestingBaseConfiguration(MinioStorageMixin, _BaseConfiguration):
     SECRET_KEY = "testingsecret"
