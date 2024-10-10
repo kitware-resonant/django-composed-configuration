@@ -14,11 +14,10 @@ class CeleryMixin(ConfigMixin):
             namespace='CELERY'
         )
 
-    The `DJANGO_CELERY_BROKER_URL` environment variable may be externally set to an AMQP URL.
+    The `DJANGO_CELERY_BROKER_URL` environment variable may be externally set to a broker URL.
     """
 
-    # Assume AMQP.
-    CELERY_BROKER_URL = values.Value("amqp://localhost:5672/")
+    CELERY_BROKER_URL = values.Value("redis://localhost:6379/0")
 
     # Disable results backend, as this feature has too many weaknesses.
     # The database should be used to communicate results of completed tasks.
@@ -60,9 +59,14 @@ class CeleryMixin(ConfigMixin):
 
     # CloudAMQP-suggested settings
     # https://www.cloudamqp.com/docs/celery.html
+
+    # If using Heroku Redis addon, consult the connection limits for your tier to see if it's safe
+    # to raise this: https://elements.heroku.com/addons/heroku-redis
+    # Keep in mind that celery workers may not be the only use of Redis in a deployment.
     CELERY_BROKER_POOL_LIMIT = 1
     CELERY_BROKER_HEARTBEAT = None
     CELERY_BROKER_CONNECTION_TIMEOUT = 30
+    # The following settings are only used with the AMQP transport.
     CELERY_EVENT_QUEUE_EXPIRES = 60
 
     # Note, CELERY_WORKER settings could be different on each running worker.

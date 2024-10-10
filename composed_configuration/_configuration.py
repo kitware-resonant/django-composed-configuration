@@ -92,7 +92,7 @@ class _HerokuMixin:
         ssl_require=True,
     )
     CELERY_BROKER_URL = values.Value(
-        environ_name="CLOUDAMQP_URL", environ_prefix=None, environ_required=True
+        environ_name="REDIS_URL", environ_prefix=None, environ_required=True
     )
     # https://help.heroku.com/J2R1S4T8/can-heroku-force-an-application-to-use-ssl-tls
     SECURE_PROXY_SSL_HEADER: tuple[str, str] | None = ("HTTP_X_FORWARDED_PROTO", "https")
