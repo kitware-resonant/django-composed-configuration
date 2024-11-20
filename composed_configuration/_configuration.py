@@ -88,7 +88,12 @@ class _HerokuMixin:
         environ_prefix=None,
         environ_required=True,
         engine="django.db.backends.postgresql",
-        conn_max_age=600,
+        # DB connection reuse does not currently work under ASGI servers --
+        # see https://code.djangoproject.com/ticket/33497 to follow along.
+        # A better approach may be to use psycopg3 connection pooling, which Django now supports.
+        # However, the tuning of connection pool settings is highly deployment-specific, so
+        # as a fallback, we simply disable persistent connections.
+        conn_max_age=0,
         ssl_require=True,
     )
     CELERY_BROKER_URL = values.Value(
