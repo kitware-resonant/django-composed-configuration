@@ -58,6 +58,10 @@ class CeleryMixin(ConfigMixin):
     # and this will be Celery's default in 6.0.
     CELERY_WORKER_CANCEL_LONG_RUNNING_TASKS_ON_CONNECTION_LOSS = True
 
+    # If Celery can't connect to the broker, keep retrying the connection until it succeeds.
+    # This is Celery's default.
+    CELERY_BROKER_CONNECTION_RETRY_ON_STARTUP = True
+
     # CloudAMQP-suggested settings
     # https://www.cloudamqp.com/docs/celery.html
     CELERY_BROKER_POOL_LIMIT = 1
